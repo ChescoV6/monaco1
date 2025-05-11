@@ -3,8 +3,27 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 	<script>
+	monaco.editor.defineTheme("custom-executor-dark", {
+    base: "vs-dark",
+    inherit: true,
+    rules: [
+        { token: "", foreground: "#D0DCE8", background: "#0F1923" }, // Main text and background
+        { token: "keyword", foreground: "#00A2FF" }, // Neon keywords
+        { token: "string", foreground: "#A3E4D7" }, // Soft cyan strings
+        { token: "comment", foreground: "#6B7280", fontStyle: "italic" }, // Subtle comments
+    ],
+    colors: {
+        "editor.background": "#0F1923",
+        "editor.foreground": "#D0DCE8",
+        "editorCursor.foreground": "#00A2FF",
+        "editorLineNumber.foreground": "#4B5563",
+        "editorLineNumber.activeForeground": "#9CA3AF",
+        "editor.selectionBackground": "#1E2A38AA",
+        "editor.inactiveSelectionBackground": "#1E2A3880",
+    },
+});
 		(function (root, name, factory) {
   'use strict';
   var objectTypes = {
@@ -2242,166 +2261,150 @@ body {
 }
 
 .tabs-container {
-	scroll-behavior: smooth;
-    background: rgba(15, 25, 35, 0.85); /* Softer glass */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(15, 25, 35, 0.9); /* Slightly darker for depth */
+    backdrop-filter: blur(5px); /* Softer blur */
+    -webkit-backdrop-filter: blur(5px);
     display: flex;
-    height: 44px; /* Slightly shorter for simplicity */
+    height: 36px; /* Even smaller for cleanliness */
     overflow-x: auto;
-    gap: 4px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: inset 0 -1px 0 rgba(0, 162, 255, 0.1); /* Minimal shadow */
+    scroll-behavior: smooth;
+    gap: 2px; /* Tighter gap */
+    border-top-left-radius: 6px; /* Smaller radius */
+    border-top-right-radius: 6px;
+    box-shadow: none; /* Removed for cleaner look */
     transition: all 0.15s ease-out;
 }
 
 .tab {
     display: flex;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 10px; /* Reduced padding */
     color: #D0DCE8;
-    min-width: 120px;
-    max-width: 240px;
+    min-width: 90px; /* Smaller minimum */
+    max-width: 180px; /* Smaller maximum */
     position: relative;
     cursor: pointer;
     transition: all 0.15s ease-out;
     user-select: none;
-    border-radius: 8px;
-    background: rgba(20, 30, 40, 0.6); /* Lighter glass */
+    border-radius: 4px; /* Smaller radius */
+    background: rgba(20, 30, 40, 0.5); /* Lighter glass */
 }
 .tab:hover {
-	transform: scale(1.02); /* Subtle zoom */
-    transition: transform 0.15s ease-out;
-    background: rgba(20, 30, 40, 0.8);
+    background: rgba(20, 30, 40, 0.7);
     color: #FFFFFF;
 }
 .tab.active {
-    background: rgba(20, 30, 40, 0.9);
+    background: rgba(20, 30, 40, 0.8);
     color: #FFFFFF;
-    border-bottom: 1px solid #00A2FF66; /* Thinner, subtler border */
+    border-bottom: 1px solid #00A2FF44; /* Thinner, subtler border */
 }
-      .tab-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: 2px;
-    color: #00A2FF; /* Neon blue for icons */
-    transition: color 0.3s ease;
-}
-.tab-icon:hover {
-    color: #66B3FF; /* Lighter neon on hover */
-}
-.tab-icon svg {
-    width: 16px;
-    height: 16px;
-}
-      .tab-title {
+
+.tab-title {
     flex-grow: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 18px; /* Slightly smaller */
+    font-size: 15px; /* Smaller for cleanliness */
     font-family: 'Exo 2', 'Orbitron', sans-serif;
-    font-weight: 500; /* Lighter weight */
-    color: #D0DCE8; /* Softer platinum */
+    font-weight: 500;
+    color: #D0DCE8;
     transition: color 0.15s ease-out;
-    padding: 0 14px; /* Balanced spacing */
+    padding: 0 8px; /* Reduced padding */
 }
 .tab-title:hover {
     color: #FFFFFF;
 }
 .tab-title.editing {
-    background: rgba(20, 30, 40, 0.9); /* Simplified glass */
-    border: 1px solid #00A2FF44; /* Subtle border */
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: rgba(20, 30, 40, 0.9);
+    border: 1px solid #00A2FF33; /* Even subtler border */
+    padding: 3px 6px; /* Smaller padding */
+    border-radius: 3px;
     outline: none;
     color: #FFFFFF;
     transition: all 0.15s ease-out;
 }
-}
-      .tab-close {
-    margin-left: 10px; /* Clean spacing */
-    opacity: 0.8; /* Softer default */
-    transition: opacity 0.15s ease-out, color 0.15s ease-out; /* Smooth */
+
+.tab-close {
+    margin-left: 6px; /* Reduced spacing */
+    opacity: 0.8;
+    transition: opacity 0.15s ease-out, color 0.15s ease-out;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 26px; /* Slightly smaller */
-    height: 26px;
-    color: #D0DCE8; /* Softer platinum */
-    font-size: 20px; /* Slightly smaller */
+    width: 20px; /* Smaller */
+    height: 20px;
+    color: #D0DCE8;
+    font-size: 16px; /* Smaller */
     font-family: 'Exo 2', 'Orbitron', sans-serif;
-    font-weight: 500; /* Lighter weight for simplicity */
-    line-height: 26px; /* Perfect centering */
+    font-weight: 500;
+    line-height: 20px;
 }
 .tab-close:hover {
     opacity: 1;
-    color: #00A2FF; /* Subtle neon */
+    color: #00A2FF;
 }
 
 .tab.new-tab {
-    min-width: 14px;
-    max-width: 14px;
+    min-width: 10px; /* Smaller */
+    max-width: 10px;
     justify-content: center;
-    margin-left: 6px; /* Clean spacing */
+    margin-left: 3px; /* Reduced spacing */
     color: #00A2FF;
-    padding: 8px;
+    padding: 5px; /* Smaller padding */
     transition: color 0.15s ease-out;
-    font-size: 20px;
+    font-size: 16px; /* Smaller */
     font-family: 'Exo 2', 'Orbitron', sans-serif;
-    font-weight: 500; /* Lighter weight */
-    line-height: 26px;
+    font-weight: 500;
+    line-height: 20px;
 }
 .tab.new-tab:hover {
-    color: #D0DCE8; /* Softer hover */
+    color: #D0DCE8;
 }
 }
     @keyframes tabAppear {
     0% {
         opacity: 0;
-        transform: translateY(-6px) scale(0.95); /* Subtle slide and scale-in */
-        filter: brightness(0.9); /* Slight dim for depth */
+        transform: scale(0.96) translateY(-5px); /* Slight scale and lift */
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0); /* No glow */
     }
     50% {
-        opacity: 0.7;
-        transform: translateY(-2px) scale(0.98); /* Mid-point lift */
+        opacity: 0.8;
+        transform: scale(1.02) translateY(0); /* Gentle overshoot */
+        box-shadow: 0 0 6px rgba(0, 162, 255, 0.2); /* Subtle neon glow */
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1); /* Smooth landing */
-        filter: brightness(1); /* Full brightness */
+        transform: scale(1) translateY(0); /* Settle in */
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0); /* Glow fades */
     }
 }
 
 @keyframes tabRemove {
     0% {
         opacity: 1;
-        transform: translateX(0) scale(1); /* Start at normal state */
-        filter: brightness(1);
+        transform: scale(1) translateX(0);
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0);
     }
-    40% {
-        opacity: 0.6;
-        transform: translateX(-4px) scale(0.97); /* Gentle shrink and slide */
+    50% {
+        opacity: 0.5;
+        transform: scale(0.98) translateX(-3px); /* Shrink and slide */
+        box-shadow: 0 0 4px rgba(0, 162, 255, 0.15); /* Subtle glow */
     }
     100% {
         opacity: 0;
-        transform: translateX(-6px) scale(0.95); /* Final fade-out */
-        filter: brightness(0.8); /* Slight fade effect */
+        transform: scale(0.96) translateX(-5px); /* Exit gracefully */
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0);
     }
 }
 
 .tab.new {
-    animation: tabAppear 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Advanced easing for smoothness */
+    animation: tabAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring-like easing */
+    will-change: opacity, transform, box-shadow; /* Optimize performance */
 }
 
 .tab.removing {
-    animation: tabRemove 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Advanced easing for clean exit */
+    animation: tabRemove 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: opacity, transform, box-shadow;
 }
   </style>
   <script src="vs/loader.js"></script>
