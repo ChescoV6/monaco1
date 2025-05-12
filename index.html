@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/cascadia-code@1.0.0/dist/cascadia-code.css" rel="stylesheet">
 	<script>
 	monaco.editor.defineTheme("custom-executor-dark", {
     base: "vs-dark",
@@ -2260,6 +2260,44 @@ body {
     border: 1px solid #333;
 }
 
+#container {
+    width: 100%;
+    height: calc(100% - 35px);
+    position: relative;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #090706;
+}
+
+.monaco-editor {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 20px !important; /* Match editor lineHeight */
+    background: #090706 !important;
+}
+
+.monaco-editor .view-lines,
+.monaco-editor .view-line,
+.monaco-editor .margin {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 14px !important; /* Match editor fontSize */
+    line-height: 20px !important; /* Match editor lineHeight */
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.monaco-editor .cursor {
+    top: 0 !important;
+    height: 20px !important; /* Match lineHeight */
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    position: absolute !important;
+    background: #00A2FF !important; /* Visible typing indicator */
+}
+
 .tabs-container {
     background: rgba(15, 25, 35, 0.9); /* Slightly darker for depth */
     backdrop-filter: blur(5px); /* Softer blur */
@@ -2304,12 +2342,12 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 15px; /* Smaller for cleanliness */
-    font-family: 'Exo 2', 'Orbitron', sans-serif;
+    font-size: 20px; /* Increased from 15px for larger text */
+    font-family: 'Cascadia Code', Consolas, monospace; /* Added Cascadia Code */
     font-weight: 500;
     color: #D0DCE8;
     transition: color 0.15s ease-out;
-    padding: 0 8px; /* Reduced padding */
+    padding: 0 8px;
 }
 .tab-title:hover {
     color: #FFFFFF;
@@ -2691,55 +2729,42 @@ function setupAutosave() {
 				]
 			});
 
-			editor = monaco.editor.create(document.getElementById('container'), {
+editor = monaco.editor.create(document.getElementById('container'), {
     language: 'lua',
-    theme: "net-theme-dark", // Revert to your custom theme
+    theme: "net-theme-dark",
     acceptSuggestionOnEnter: "smart",
-    cursorSmoothCaretAnimation: "on",
-    cursorBlinking: "smooth",
+    cursorSmoothCaretAnimation: true, // Smooth typing indicator
+    cursorBlinking: "smooth", // Smooth blinking for typing feedback
     cursorStyle: "line",
     cursorWidth: 2,
-    fontFamily: "'JetBrains Mono', 'Consolas', monospace", // Optimized font
-    fontSize: 17,
+    fontFamily: "'Cascadia Code', Consolas, monospace", // Added Cascadia Code with fallbacks
+    fontSize: 16, // Increased for larger text
     fontWeight: "400",
-    fontLigatures: false,
+    fontLigatures: true,
     letterSpacing: 0,
-    lineHeight: 24, // Matches "vs-dark" alignment
+    lineHeight: 20, // Consistent line height
     padding: {
-        top: 16,
-        bottom: 16,
+        top: 0, // Remove padding to avoid offset
+        bottom: 0,
     },
-    lineNumbers: "on",
-    lineNumbersMinChars: 4,
-    glyphMargin: false,
     folding: true,
-    showFoldingControls: "mouseover",
-    foldingHighlight: false,
     dragAndDrop: true,
     links: false,
     minimap: {
         enabled: false,
     },
+    showFoldingControls: "always",
     smoothScrolling: true,
-    scrollBeyondLastLine: false,
-    scrollbar: {
-        vertical: "visible",
-        horizontal: "visible",
-        useShadows: false,
-        verticalScrollbarSize: 8,
-        horizontalScrollbarSize: 8,
-        verticalSliderSize: 8,
-        horizontalSliderSize: 8,
-    },
-    renderLineHighlight: "none",
-    renderWhitespace: "none",
-    renderControlCharacters: false,
+    stopRenderingLineAfter: 6500,
     suggest: {
         snippetsPreventQuickSuggestions: false,
     },
-    formatOnPaste: true,
-    showDeprecated: true,
-    stopRenderingLineAfter: 6500,
+    automaticLayout: true,
+    disableLayerHinting: true, // Reduce font rendering issues
+    renderFinalNewline: "off",
+    experimental: {
+        useShadowDOM: false, // Avoid styling conflicts
+    },
 });
 
       loadTabs();
