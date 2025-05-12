@@ -3,7 +3,27 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+<link href="https://cdn.jsdelivr.net/npm/cascadia-code@1.0.0/dist/cascadia-code.css" rel="stylesheet">
 	<script>
+	monaco.editor.defineTheme("custom-executor-dark", {
+    base: "vs-dark",
+    inherit: true,
+    rules: [
+        { token: "", foreground: "#D0DCE8", background: "#0F1923" }, // Main text and background
+        { token: "keyword", foreground: "#00A2FF" }, // Neon keywords
+        { token: "string", foreground: "#A3E4D7" }, // Soft cyan strings
+        { token: "comment", foreground: "#6B7280", fontStyle: "italic" }, // Subtle comments
+    ],
+    colors: {
+        "editor.background": "#0F1923",
+        "editor.foreground": "#D0DCE8",
+        "editorCursor.foreground": "#00A2FF",
+        "editorLineNumber.foreground": "#4B5563",
+        "editorLineNumber.activeForeground": "#9CA3AF",
+        "editor.selectionBackground": "#1E2A38AA",
+        "editor.inactiveSelectionBackground": "#1E2A3880",
+    },
+});
 		(function (root, name, factory) {
   'use strict';
   var objectTypes = {
@@ -2210,13 +2230,16 @@
 
 	<style type="text/css">
 		html,
-		body {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-		}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: rgba(5, 10, 20, 0.9); /* Darker base with transparency */
+    backdrop-filter: blur(3px); /* Subtle glass effect */
+    -webkit-backdrop-filter: blur(3px);
+}
 	</style>
 	<meta charset="utf-8" />
 	<title></title>
@@ -2229,114 +2252,198 @@
   </div>
   <style>
       .editor-container {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-      }
-      .tabs-container {
-          background-color: #090706;
-          display: flex;
-          height: 35px;
-          overflow-x: auto;
-          border-bottom: 1px solid #333;
-          gap: 0;
-      }
-      .tab {
-          display: flex;
-          align-items: center;
-          padding: 0 15px;
-          background-color: #090706;
-          color: #969696;
-          border-right: 1px solid #1e1e1e;
-          min-width: 120px;
-          max-width: 200px;
-          position: relative;
-          cursor: pointer;
-          transition: background-color 0.2s, color 0.2s;
-          user-select: none;
-      }
-      .tab.active {
-          background-color: #090706;
-          color: #ffffff;
-      }
-      .tab-icon {
-          width: 20px;
-          height: 20px;
-          margin-right: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center; 
-          position: relative; 
-          top: 2px;
-      }
-      .tab-icon svg {
-          width: 16px;
-          height: 16px;
-      }
-      .tab-title {
-          flex-grow: 1;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 13px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      }
-      .tab-title.editing {
-          background: #090706;
-          border: 1px solid #525252;
-          padding: 2px 4px;
-          border-radius: 3px;
-          outline: none;
-      }
-      .tab-close {
-          margin-left: 8px;
-          opacity: 0.7;
-          transition: opacity 0.2s;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 16px;
-          height: 16px;
-          border-radius: 3px;
-      }
-      .tab-close:hover {
-          opacity: 1;
-          background-color: rgba(255,255,255,0.1);
-      }
-      .tab.new-tab {
-          min-width: 10px;
-          max-width: 10px;
-          justify-content: center;
-          background-color: transparent;
-          border: none;
-          margin-left: -2px;
-      }
-      .tab.new-tab:hover {
-          background-color: rgba(255,255,255,0.1);
-      }
-      @keyframes tabAppear {
-          from {
-              opacity: 0;
-              transform: translateY(-10px);
-          }
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
-      @keyframes tabRemove {
-          to {
-              opacity: 0;
-              transform: translateX(-10px);
-          }
-      }
-      .tab.new {
-          animation: tabAppear 0.2s ease-out;
-      }
-      .tab.removing {
-          animation: tabRemove 0.2s ease-out;
-      }
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #0A1320;
+    border: 1px solid #333;
+}
+
+#container {
+    width: 100%;
+    height: calc(100% - 35px);
+    position: relative;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #090706;
+}
+
+.monaco-editor {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 20px !important; /* Match editor lineHeight */
+    background: #090706 !important;
+}
+
+.monaco-editor .view-lines,
+.monaco-editor .view-line,
+.monaco-editor .margin {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 14px !important; /* Match editor fontSize */
+    line-height: 20px !important; /* Match editor lineHeight */
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.monaco-editor .cursor {
+    top: 0 !important;
+    height: 20px !important; /* Match lineHeight */
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    position: absolute !important;
+    background: #00A2FF !important; /* Visible typing indicator */
+}
+
+.tabs-container {
+    background: rgba(15, 25, 35, 0.9); /* Slightly darker for depth */
+    backdrop-filter: blur(5px); /* Softer blur */
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    height: 36px; /* Even smaller for cleanliness */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 2px; /* Tighter gap */
+    border-top-left-radius: 6px; /* Smaller radius */
+    border-top-right-radius: 6px;
+    box-shadow: none; /* Removed for cleaner look */
+    transition: all 0.15s ease-out;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    padding: 0 10px; /* Reduced padding */
+    color: #D0DCE8;
+    min-width: 90px; /* Smaller minimum */
+    max-width: 180px; /* Smaller maximum */
+    position: relative;
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+    user-select: none;
+    border-radius: 4px; /* Smaller radius */
+    background: rgba(20, 30, 40, 0.5); /* Lighter glass */
+}
+.tab:hover {
+    background: rgba(20, 30, 40, 0.7);
+    color: #FFFFFF;
+}
+.tab.active {
+    background: rgba(20, 30, 40, 0.8);
+    color: #FFFFFF;
+    border-bottom: 1px solid #00A2FF44; /* Thinner, subtler border */
+}
+
+.tab-title {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px; /* Increased from 15px for larger text */
+    font-family: 'Cascadia Code', Consolas, monospace; /* Added Cascadia Code */
+    font-weight: 500;
+    color: #D0DCE8;
+    transition: color 0.15s ease-out;
+    padding: 0 8px;
+}
+.tab-title:hover {
+    color: #FFFFFF;
+}
+.tab-title.editing {
+    background: rgba(20, 30, 40, 0.9);
+    border: 1px solid #00A2FF33; /* Even subtler border */
+    padding: 3px 6px; /* Smaller padding */
+    border-radius: 3px;
+    outline: none;
+    color: #FFFFFF;
+    transition: all 0.15s ease-out;
+}
+
+.tab-close {
+    margin-left: 6px; /* Reduced spacing */
+    opacity: 0.8;
+    transition: opacity 0.15s ease-out, color 0.15s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; /* Smaller */
+    height: 20px;
+    color: #D0DCE8;
+    font-size: 16px; /* Smaller */
+    font-family: 'Exo 2', 'Orbitron', sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+}
+.tab-close:hover {
+    opacity: 1;
+    color: #00A2FF;
+}
+
+.tab.new-tab {
+    min-width: 10px; /* Smaller */
+    max-width: 10px;
+    justify-content: center;
+    margin-left: 3px; /* Reduced spacing */
+    color: #00A2FF;
+    padding: 5px; /* Smaller padding */
+    transition: color 0.15s ease-out;
+    font-size: 16px; /* Smaller */
+    font-family: 'Exo 2', 'Orbitron', sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+}
+.tab.new-tab:hover {
+    color: #D0DCE8;
+}
+}
+    @keyframes tabAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.96) translateY(-5px); /* Slight scale and lift */
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0); /* No glow */
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02) translateY(0); /* Gentle overshoot */
+        box-shadow: 0 0 6px rgba(0, 162, 255, 0.2); /* Subtle neon glow */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0); /* Settle in */
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0); /* Glow fades */
+    }
+}
+
+@keyframes tabRemove {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.98) translateX(-3px); /* Shrink and slide */
+        box-shadow: 0 0 4px rgba(0, 162, 255, 0.15); /* Subtle glow */
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.96) translateX(-5px); /* Exit gracefully */
+        box-shadow: 0 0 0 rgba(0, 162, 255, 0);
+    }
+}
+
+.tab.new {
+    animation: tabAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Spring-like easing */
+    will-change: opacity, transform, box-shadow; /* Optimize performance */
+}
+
+.tab.removing {
+    animation: tabRemove 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: opacity, transform, box-shadow;
+}
   </style>
   <script src="vs/loader.js"></script>
   <script type="text/javascript">
@@ -2581,66 +2688,84 @@ function setupAutosave() {
 				base: 'vs-dark',
 				inherit: true,
 				colors: {
-					"editor.background": '#090706', //ur background color
-				},
+    "editor.background": '#0A1320', // Keep Lunex background
+    "editor.foreground": '#E0E0E0', // Light gray for general text (softer than pure white)
+    "editor.selectionBackground": '#00A2FF22', // Subtle blue selection with transparency
+    "editor.selectionHighlightBackground": '#00A2FF11', // Very faint selection highlight
+    "editorCursor.foreground": '#00A2FF', // Keep blue cursor to match Lunex
+    "editor.lineHighlightBackground": '#1C25260F', // Very subtle line highlight
+    "editor.lineHighlightBorder": '#00A2FF1A', // Faint blue glow for active line
+    "editorGutter.background": '#0A1320', // Gutter matches background
+    "editorGutter.foreground": '#666666', // Subtle gray for line numbers
+    "editorBracketMatch.background": '#00A2FF22', // Subtle bracket matching
+    "editorBracketMatch.border": '#00A2FF', // Blue border for bracket matching
+},
 				rules: [{
-						token: 'global',
-						foreground: '6699cc', // //FFFFFF
-						fontStyle: "bold"
-					},
+    token: 'global',
+    foreground: '66B3FF', // Softer blue (modern alternative to #00A2FF)
+    fontStyle: "bold"
+},
 					{
-						token: 'keyword',
-						foreground: 'cc99cc',
-						fontStyle: "bold"
-					},
+    token: 'keyword',
+    foreground: 'A78BFA', // Pastel purple for a modern look
+    fontStyle: "bold"
+},
 					{
-						token: 'comment',
-						foreground: '999999'
-					},
+    token: 'comment',
+    foreground: '6B7280', // Softer gray for comments
+},
 					{
-						token: 'number',
-						foreground: 'f99157'
-					},
+    token: 'number',
+    foreground: 'F4A261', // Pastel orange
+},
 					{
-						token: 'string',
-						foreground: '99CC99'
-					},
+    token: 'string',
+    foreground: '2DD4BF', // Pastel teal
+},
 					{
-						token: 'Method',
-						foreground: 'ffa1dc'
-					},
+    token: 'Method',
+    foreground: 'F472B6', // Pastel pink
+},
 				]
 			});
 
-			editor = monaco.editor.create(document.getElementById('container'), {
-				language: 'lua',
-				theme: "net-theme-dark",
-				acceptSuggestionOnEnter: "smart",
-				cursorSmoothCaretAnimation: true,
-				suggestOnTriggerCharacters: true,
-				suggestSelection: "recentlyUsed",
-				folding: true,
-					dragAndDrop: true,
-					links: false,
-					minimap: {
-						enabled: false,
-					},
-					showFoldingControls: "always",
-					smoothScrolling: true,
-					stopRenderingLineAfter: 6500,
-					cursorBlinking: "smooth",
-					cursorSmoothCaretAnimation: true,
-					foldingHighlight: false,
-					fontLigatures: true,
-					formatOnPaste: true,
-					showDeprecated: true,
-					suggest: {
-						snippetsPreventQuickSuggestions: false,
-					},
-					padding: {
-						top: 24,
-					}
-			});
+editor = monaco.editor.create(document.getElementById('container'), {
+    language: 'lua',
+    theme: "net-theme-dark",
+    acceptSuggestionOnEnter: "smart",
+    cursorSmoothCaretAnimation: true, // Smooth typing indicator
+    cursorBlinking: "smooth", // Smooth blinking for typing feedback
+    cursorStyle: "line",
+    cursorWidth: 2,
+    fontFamily: "'Cascadia Code', Consolas, monospace", // Added Cascadia Code with fallbacks
+    fontSize: 16, // Increased for larger text
+    fontWeight: "400",
+    fontLigatures: true,
+    letterSpacing: 0,
+    lineHeight: 20, // Consistent line height
+    padding: {
+        top: 0, // Remove padding to avoid offset
+        bottom: 0,
+    },
+    folding: true,
+    dragAndDrop: true,
+    links: false,
+    minimap: {
+        enabled: false,
+    },
+    showFoldingControls: "always",
+    smoothScrolling: true,
+    stopRenderingLineAfter: 6500,
+    suggest: {
+        snippetsPreventQuickSuggestions: false,
+    },
+    automaticLayout: true,
+    disableLayerHinting: true, // Reduce font rendering issues
+    renderFinalNewline: "off",
+    experimental: {
+        useShadowDOM: false, // Avoid styling conflicts
+    },
+});
 
       loadTabs();
       setupAutosave();
