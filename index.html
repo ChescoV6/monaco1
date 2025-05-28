@@ -2257,59 +2257,59 @@
         flex-direction: column;
         background-color: #141414;
     }
-    .tabs-container {
+    .editor-container .tabs-container {
         background-color: #141414;
         display: flex;
-        height: 28px; /* Reduced from 35px */
+        height: 28px !important; /* Enforce height */
         overflow-x: auto;
         border-bottom: 1px solid #1e1e1e;
         gap: 0;
     }
-    .tab {
+    .editor-container .tab {
         display: flex;
         align-items: center;
-        padding: 0 10px; /* Reduced from 0 15px */
+        padding: 0 10px !important; /* Enforce padding */
         background-color: #141414;
         color: #969696;
         border-right: 1px solid #1e1e1e;
-        min-width: 100px; /* Reduced from 120px */
-        max-width: 160px; /* Reduced from 200px */
+        min-width: 100px !important; /* Enforce min-width */
+        max-width: 160px !important; /* Enforce max-width */
         position: relative;
         cursor: pointer;
         transition: background-color 0.2s ease, color 0.2s ease;
         user-select: none;
     }
-    .tab.active {
+    .editor-container .tab.active {
         background-color: #1e1e1e;
         color: #ffffff;
     }
-    .tab:hover {
+    .editor-container .tab:hover {
         background-color: #1e1e1e;
     }
-    .tab-icon {
-        width: 16px; /* Reduced from 20px */
-        height: 16px; /* Reduced from 20px */
-        margin-right: 6px; /* Reduced from 8px */
+    .editor-container .tab-icon {
+        width: 16px !important; /* Enforce size */
+        height: 16px !important; /* Enforce size */
+        margin-right: 6px !important; /* Enforce margin */
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        top: 1px; /* Adjusted from 2px */
+        top: 1px;
     }
-    .tab-icon img {
-        width: 14px; /* Reduced from 16px */
-        height: 14px; /* Reduced from 16px */
+    .editor-container .tab-icon img {
+        width: 14px !important; /* Enforce size */
+        height: 14px !important; /* Enforce size */
         filter: brightness(0.8);
     }
-    .tab-title {
+    .editor-container .tab-title {
         flex-grow: 1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 12px; /* Reduced from 13px */
+        font-size: 12px !important; /* Enforce font-size */
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
-    .tab-title.editing {
+    .editor-container .tab-title.editing {
         background: #1e1e1e;
         border: 1px solid #525252;
         padding: 2px 4px;
@@ -2317,33 +2317,33 @@
         outline: none;
         color: #ffffff;
     }
-    .tab-close {
-        margin-left: 6px; /* Reduced from 8px */
+    .editor-container .tab-close {
+        margin-left: 6px !important; /* Enforce margin */
         opacity: 0.7;
         transition: opacity 0.2s ease, background-color 0.2s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 14px; /* Reduced from 16px */
-        height: 14px; /* Reduced from 16px */
+        width: 14px !important; /* Enforce size */
+        height: 14px !important; /* Enforce size */
         border-radius: 3px;
         color: #969696;
     }
-    .tab-close:hover {
+    .editor-container .tab-close:hover {
         opacity: 1;
         background-color: #333;
         color: #ffffff;
     }
-    .tab.new-tab {
-        min-width: 28px; /* Reduced from 35px to match container height */
-        max-width: 28px; /* Reduced from 35px */
+    .editor-container .tab.new-tab {
+        min-width: 28px !important; /* Enforce size */
+        max-width: 28px !important; /* Enforce size */
         justify-content: center;
         background-color: #141414;
         border: none;
         color: #969696;
-        font-size: 14px; /* Reduced from 16px */
+        font-size: 14px !important; /* Enforce font-size */
     }
-    .tab.new-tab:hover {
+    .editor-container .tab.new-tab:hover {
         background-color: #1e1e1e;
         color: #ffffff;
     }
@@ -2363,15 +2363,15 @@
             transform: translateX(-10px);
         }
     }
-    .tab.new {
+    .editor-container .tab.new {
         animation: tabAppear 0.2s ease-out;
     }
-    .tab.removing {
+    .editor-container .tab.removing {
         animation: tabRemove 0.2s ease-out;
     }
-    .editor {
+    .editor-container .editor {
         width: 100%;
-        height: calc(100% - 28px); /* Adjusted from calc(100% - 35px) */
+        height: calc(100% - 28px) !important; /* Enforce height */
         background-color: #141414;
     }
 </style>
