@@ -3,7 +3,27 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+<link href="https://cdn.jsdelivr.net/npm/cascadia-code@1.0.0/dist/cascadia-code.css" rel="stylesheet">
 	<script>
+	monaco.editor.defineTheme("custom-executor-dark", {
+    base: "vs-dark",
+    inherit: true,
+    rules: [
+        { token: "", foreground: "#D0DCE8", background: "#0F1923" }, // Main text and background
+        { token: "keyword", foreground: "#00A2FF" }, // Neon keywords
+        { token: "string", foreground: "#A3E4D7" }, // Soft cyan strings
+        { token: "comment", foreground: "#6B7280", fontStyle: "italic" }, // Subtle comments
+    ],
+    colors: {
+        "editor.background": "#0F1923",
+        "editor.foreground": "#D0DCE8",
+        "editorCursor.foreground": "#00A2FF",
+        "editorLineNumber.foreground": "#4B5563",
+        "editorLineNumber.activeForeground": "#9CA3AF",
+        "editor.selectionBackground": "#1E2A38AA",
+        "editor.inactiveSelectionBackground": "#1E2A3880",
+    },
+});
 		(function (root, name, factory) {
   'use strict';
   var objectTypes = {
@@ -2209,15 +2229,17 @@
 	</script>
 
 	<style type="text/css">
-		html,
-		body {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-		}
-	</style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #141414; /* RGB 20, 20, 20 */
+        color: #ffffff; /* Primary text color */
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+</style>
 	<meta charset="utf-8" />
 	<title></title>
 </head>
@@ -2225,119 +2247,134 @@
 <body>
   <div class="editor-container">
       <div id="tabs-container" class="tabs-container"></div>
-      <div id="container" style="width:100%;height:calc(100% - 35px);"></div>
+      <div id="container" class="editor"></div>
   </div>
   <style>
-      .editor-container {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-      }
-      .tabs-container {
-          background-color: #090706;
-          display: flex;
-          height: 35px;
-          overflow-x: auto;
-          border-bottom: 1px solid #333;
-          gap: 0;
-      }
-      .tab {
-          display: flex;
-          align-items: center;
-          padding: 0 15px;
-          background-color: #090706;
-          color: #969696;
-          border-right: 1px solid #1e1e1e;
-          min-width: 120px;
-          max-width: 200px;
-          position: relative;
-          cursor: pointer;
-          transition: background-color 0.2s, color 0.2s;
-          user-select: none;
-      }
-      .tab.active {
-          background-color: #090706;
-          color: #ffffff;
-      }
-      .tab-icon {
-          width: 20px;
-          height: 20px;
-          margin-right: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center; 
-          position: relative; 
-          top: 2px;
-      }
-      .tab-icon svg {
-          width: 16px;
-          height: 16px;
-      }
-      .tab-title {
-          flex-grow: 1;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 13px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      }
-      .tab-title.editing {
-          background: #090706;
-          border: 1px solid #525252;
-          padding: 2px 4px;
-          border-radius: 3px;
-          outline: none;
-      }
-      .tab-close {
-          margin-left: 8px;
-          opacity: 0.7;
-          transition: opacity 0.2s;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 16px;
-          height: 16px;
-          border-radius: 3px;
-      }
-      .tab-close:hover {
-          opacity: 1;
-          background-color: rgba(255,255,255,0.1);
-      }
-      .tab.new-tab {
-          min-width: 10px;
-          max-width: 10px;
-          justify-content: center;
-          background-color: transparent;
-          border: none;
-          margin-left: -2px;
-      }
-      .tab.new-tab:hover {
-          background-color: rgba(255,255,255,0.1);
-      }
-      @keyframes tabAppear {
-          from {
-              opacity: 0;
-              transform: translateY(-10px);
-          }
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
-      @keyframes tabRemove {
-          to {
-              opacity: 0;
-              transform: translateX(-10px);
-          }
-      }
-      .tab.new {
-          animation: tabAppear 0.2s ease-out;
-      }
-      .tab.removing {
-          animation: tabRemove 0.2s ease-out;
-      }
-  </style>
+    .editor-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: #141414;
+    }
+    .editor-container .tabs-container {
+        background-color: #141414;
+        display: flex;
+        height: 24px !important; /* Reduced from 28px */
+        overflow-x: auto;
+        border-bottom: 1px solid #1e1e1e;
+        gap: 0;
+    }
+    .editor-container .tab {
+        display: flex;
+        align-items: center;
+        padding: 0 8px !important; /* Reduced from 0 10px */
+        background-color: #141414;
+        color: #969696;
+        border-right: 1px solid #1e1e1e;
+        min-width: 80px !important; /* Reduced from 100px */
+        max-width: 140px !important; /* Reduced from 160px */
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        user-select: none;
+    }
+    .editor-container .tab.active {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+    .editor-container .tab:hover {
+        background-color: #1e1e1e;
+    }
+    .editor-container .tab-icon {
+        width: 14px !important; /* Reduced from 16px */
+        height: 14px !important; /* Reduced from 16px */
+        margin-right: 4px !important; /* Reduced from 6px */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: 1px;
+    }
+    .editor-container .tab-icon img {
+        width: 12px !important; /* Reduced from 14px */
+        height: 12px !important; /* Reduced from 14px */
+        filter: brightness(0.8);
+    }
+    .editor-container .tab-title {
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 11px !important; /* Reduced from 12px */
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    .editor-container .tab-title.editing {
+        background: #1e1e1e;
+        border: 1px solid #525252;
+        padding: 1px 3px; /* Adjusted for smaller size */
+        border-radius: 3px;
+        outline: none;
+        color: #ffffff;
+    }
+    .editor-container .tab-close {
+        margin-left: 4px !important; /* Reduced from 6px */
+        opacity: 0.7;
+        transition: opacity 0.2s ease, background-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 12px !important; /* Reduced from 14px */
+        height: 12px !important; /* Reduced from 14px */
+        border-radius: 3px;
+        color: #969696;
+    }
+    .editor-container .tab-close:hover {
+        opacity: 1;
+        background-color: #333;
+        color: #ffffff;
+    }
+    .editor-container .tab.new-tab {
+        min-width: 24px !important; /* Reduced from 28px to match container height */
+        max-width: 24px !important; /* Reduced from 28px */
+        justify-content: center;
+        background-color: #141414;
+        border: none;
+        color: #969696;
+        font-size: 12px !important; /* Reduced from 14px */
+    }
+    .editor-container .tab.new-tab:hover {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+    @keyframes tabAppear {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes tabRemove {
+        to {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+    }
+    .editor-container .tab.new {
+        animation: tabAppear 0.2s ease-out;
+    }
+    .editor-container .tab.removing {
+        animation: tabRemove 0.2s ease-out;
+    }
+    .editor-container .editor {
+        width: 100%;
+        height: calc(100% - 24px) !important; /* Adjusted from calc(100% - 28px) */
+        background-color: #141414;
+    }
+</style>
   <script src="vs/loader.js"></script>
   <script type="text/javascript">
       require.config({
@@ -2578,69 +2615,77 @@ function setupAutosave() {
 
 			
 			monaco.editor.defineTheme('net-theme-dark', {
-				base: 'vs-dark',
-				inherit: true,
-				colors: {
-					"editor.background": '#090706', //ur background color
-				},
-				rules: [{
-						token: 'global',
-						foreground: '6699cc', // //FFFFFF
-						fontStyle: "bold"
-					},
-					{
-						token: 'keyword',
-						foreground: 'cc99cc',
-						fontStyle: "bold"
-					},
-					{
-						token: 'comment',
-						foreground: '999999'
-					},
-					{
-						token: 'number',
-						foreground: 'f99157'
-					},
-					{
-						token: 'string',
-						foreground: '99CC99'
-					},
-					{
-						token: 'Method',
-						foreground: 'ffa1dc'
-					},
-				]
-			});
+    base: 'vs-dark',
+    inherit: true,
+    colors: {
+        "editor.background": '#141414', // Matches the UI background (RGB 20, 20, 20)
+    },
+    rules: [{
+            token: 'global',
+            foreground: '6699cc', // //FFFFFF
+            fontStyle: "bold"
+        },
+        {
+            token: 'keyword',
+            foreground: 'cc99cc',
+            fontStyle: "bold"
+        },
+        {
+            token: 'comment',
+            foreground: '999999'
+        },
+        {
+            token: 'number',
+            foreground: 'f99157'
+        },
+        {
+            token: 'string',
+            foreground: '99CC99'
+        },
+        {
+            token: 'Method',
+            foreground: 'ffa1dc'
+        },
+    ]
+});
 
-			editor = monaco.editor.create(document.getElementById('container'), {
-				language: 'lua',
-				theme: "net-theme-dark",
-				acceptSuggestionOnEnter: "smart",
-				cursorSmoothCaretAnimation: true,
-				suggestOnTriggerCharacters: true,
-				suggestSelection: "recentlyUsed",
-				folding: true,
-					dragAndDrop: true,
-					links: false,
-					minimap: {
-						enabled: false,
-					},
-					showFoldingControls: "always",
-					smoothScrolling: true,
-					stopRenderingLineAfter: 6500,
-					cursorBlinking: "smooth",
-					cursorSmoothCaretAnimation: true,
-					foldingHighlight: false,
-					fontLigatures: true,
-					formatOnPaste: true,
-					showDeprecated: true,
-					suggest: {
-						snippetsPreventQuickSuggestions: false,
-					},
-					padding: {
-						top: 24,
-					}
-			});
+editor = monaco.editor.create(document.getElementById('container'), {
+    language: 'lua',
+    theme: "net-theme-dark",
+    acceptSuggestionOnEnter: "smart",
+    cursorSmoothCaretAnimation: true, // Smooth typing indicator
+    cursorBlinking: "smooth", // Smooth blinking for typing feedback
+    cursorStyle: "line",
+    cursorWidth: 2,
+    fontFamily: "'Cascadia Code', Consolas, monospace", // Added Cascadia Code with fallbacks
+    fontSize: 16, // Increased for larger text
+    fontWeight: "400",
+    fontLigatures: true,
+    letterSpacing: 0,
+    lineHeight: 20, // Consistent line height
+    padding: {
+        top: 0, // Remove padding to avoid offset
+        bottom: 0,
+    },
+    folding: true,
+    dragAndDrop: true,
+    links: false,
+    minimap: {
+        enabled: false,
+    },
+    showFoldingControls: "always",
+    smoothScrolling: true,
+    stopRenderingLineAfter: 6500,
+    suggest: {
+        snippetsPreventQuickSuggestions: false,
+    },
+    automaticLayout: true,
+    disableLayerHinting: true, // Reduce font rendering issues
+    renderFinalNewline: "off",
+    experimental: {
+        useShadowDOM: false, // Avoid styling conflicts
+    },
+});
 
       loadTabs();
       setupAutosave();
