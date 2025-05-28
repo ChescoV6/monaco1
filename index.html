@@ -2260,7 +2260,7 @@
     .editor-container .tabs-container {
         background-color: #141414;
         display: flex;
-        height: 28px !important; /* Enforce height */
+        height: 24px !important; /* Reduced from 28px */
         overflow-x: auto;
         border-bottom: 1px solid #1e1e1e;
         gap: 0;
@@ -2268,12 +2268,12 @@
     .editor-container .tab {
         display: flex;
         align-items: center;
-        padding: 0 10px !important; /* Enforce padding */
+        padding: 0 8px !important; /* Reduced from 0 10px */
         background-color: #141414;
         color: #969696;
         border-right: 1px solid #1e1e1e;
-        min-width: 100px !important; /* Enforce min-width */
-        max-width: 160px !important; /* Enforce max-width */
+        min-width: 80px !important; /* Reduced from 100px */
+        max-width: 140px !important; /* Reduced from 160px */
         position: relative;
         cursor: pointer;
         transition: background-color 0.2s ease, color 0.2s ease;
@@ -2287,9 +2287,9 @@
         background-color: #1e1e1e;
     }
     .editor-container .tab-icon {
-        width: 16px !important; /* Enforce size */
-        height: 16px !important; /* Enforce size */
-        margin-right: 6px !important; /* Enforce margin */
+        width: 14px !important; /* Reduced from 16px */
+        height: 14px !important; /* Reduced from 16px */
+        margin-right: 4px !important; /* Reduced from 6px */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2297,8 +2297,8 @@
         top: 1px;
     }
     .editor-container .tab-icon img {
-        width: 14px !important; /* Enforce size */
-        height: 14px !important; /* Enforce size */
+        width: 12px !important; /* Reduced from 14px */
+        height: 12px !important; /* Reduced from 14px */
         filter: brightness(0.8);
     }
     .editor-container .tab-title {
@@ -2306,26 +2306,26 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 12px !important; /* Enforce font-size */
+        font-size: 11px !important; /* Reduced from 12px */
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
     .editor-container .tab-title.editing {
         background: #1e1e1e;
         border: 1px solid #525252;
-        padding: 2px 4px;
+        padding: 1px 3px; /* Adjusted for smaller size */
         border-radius: 3px;
         outline: none;
         color: #ffffff;
     }
     .editor-container .tab-close {
-        margin-left: 6px !important; /* Enforce margin */
+        margin-left: 4px !important; /* Reduced from 6px */
         opacity: 0.7;
         transition: opacity 0.2s ease, background-color 0.2s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 14px !important; /* Enforce size */
-        height: 14px !important; /* Enforce size */
+        width: 12px !important; /* Reduced from 14px */
+        height: 12px !important; /* Reduced from 14px */
         border-radius: 3px;
         color: #969696;
     }
@@ -2335,13 +2335,13 @@
         color: #ffffff;
     }
     .editor-container .tab.new-tab {
-        min-width: 28px !important; /* Enforce size */
-        max-width: 28px !important; /* Enforce size */
+        min-width: 24px !important; /* Reduced from 28px to match container height */
+        max-width: 24px !important; /* Reduced from 28px */
         justify-content: center;
         background-color: #141414;
         border: none;
         color: #969696;
-        font-size: 14px !important; /* Enforce font-size */
+        font-size: 12px !important; /* Reduced from 14px */
     }
     .editor-container .tab.new-tab:hover {
         background-color: #1e1e1e;
@@ -2371,7 +2371,7 @@
     }
     .editor-container .editor {
         width: 100%;
-        height: calc(100% - 28px) !important; /* Enforce height */
+        height: calc(100% - 24px) !important; /* Adjusted from calc(100% - 28px) */
         background-color: #141414;
     }
 </style>
