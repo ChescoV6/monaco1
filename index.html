@@ -2236,7 +2236,9 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #2a2a2a; /* Dark gray background */
+    background: rgba(5, 10, 20, 0.9); /* Darker base with transparency */
+    backdrop-filter: blur(3px); /* Subtle glass effect */
+    -webkit-backdrop-filter: blur(3px);
 }
 	</style>
 	<meta charset="utf-8" />
@@ -2254,7 +2256,8 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #2a2a2a; /* Match body background */
+    background-color: #0A1320;
+    border: 1px solid #333;
 }
 
 #container {
@@ -2296,34 +2299,42 @@ body {
 }
 
 .tabs-container {
-    background-color: #333333; /* Slightly lighter dark gray */
+    background: rgba(15, 25, 35, 0.9); /* Slightly darker for depth */
+    backdrop-filter: blur(5px); /* Softer blur */
+    -webkit-backdrop-filter: blur(5px);
     display: flex;
-    height: 35px;
+    height: 36px; /* Even smaller for cleanliness */
     overflow-x: auto;
-    border-bottom: 1px solid #444444; /* Lighter gray border */
-    gap: 0;
+    scroll-behavior: smooth;
+    gap: 2px; /* Tighter gap */
+    border-top-left-radius: 6px; /* Smaller radius */
+    border-top-right-radius: 6px;
+    box-shadow: none; /* Removed for cleaner look */
+    transition: all 0.15s ease-out;
 }
 
 .tab {
     display: flex;
     align-items: center;
-    padding: 0 15px;
-    background-color: #2a2a2a; /* Dark gray */
-    color: #cccccc; /* Light gray text */
-    border-right: 1px solid #444444; /* Gray separator */
-    min-width: 120px;
-    max-width: 200px;
+    padding: 0 10px; /* Reduced padding */
+    color: #D0DCE8;
+    min-width: 90px; /* Smaller minimum */
+    max-width: 180px; /* Smaller maximum */
     position: relative;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all 0.15s ease-out;
+    user-select: none;
+    border-radius: 4px; /* Smaller radius */
+    background: rgba(20, 30, 40, 0.5); /* Lighter glass */
 }
 .tab:hover {
     background: rgba(20, 30, 40, 0.7);
     color: #FFFFFF;
 }
 .tab.active {
-    background-color: #404040; /* Darker gray for active tab */
-    color: #ffffff; /* White text for active tab */
+    background: rgba(20, 30, 40, 0.8);
+    color: #FFFFFF;
+    border-bottom: 1px solid #00A2FF44; /* Thinner, subtler border */
 }
 
 .tab-title {
@@ -2342,12 +2353,13 @@ body {
     color: #FFFFFF;
 }
 .tab-title.editing {
-    background: #2a2a2a;
-    border: 1px solid #00ff00; /* Neon green border when editing (optional) */
-    padding: 2px 4px;
+    background: rgba(20, 30, 40, 0.9);
+    border: 1px solid #00A2FF33;
+    padding: 3px 6px;
     border-radius: 3px;
     outline: none;
-    color: #ffffff; /* White text when editing */
+    color: #FFFFFF;
+    transition: all 0.15s ease-out;
 }
 
 .tab-close {
@@ -2367,7 +2379,7 @@ body {
 }
 .tab-close:hover {
     opacity: 1;
-    background-color: rgba(0, 255, 0, 0.2); /* Neon green hover effect (optional) */
+    color: #00A2FF;
 }
 
 .tab.new-tab {
@@ -2384,7 +2396,7 @@ body {
     line-height: 20px;
 }
 .tab.new-tab:hover {
-    background-color: rgba(0, 255, 0, 0.2); /* Neon green hover effect (optional) */
+    color: #D0DCE8;
 }
 }
     @keyframes tabAppear {
@@ -2672,52 +2684,69 @@ function setupAutosave() {
 			});
 
 			
-			monaco.editor.defineTheme('roblox-dark-gray', {
-    base: 'vs-dark',
-    inherit: true,
-    colors: {
-        "editor.background": '#2a2a2a', /* Dark gray background */
-        "editor.foreground": '#ffffff', /* White text */
-        "editorLineNumber.foreground": '#999999', /* Light gray line numbers */
-        "editorCursor.foreground": '#00ff00' /* Neon green cursor (optional) */
-    },
-				rules: [
-        {
-            token: 'global',
-            foreground: '#00ff00', /* Neon green for globals (optional) */
-            fontStyle: "bold"
-        },
+			monaco.editor.defineTheme('net-theme-dark', {
+				base: 'vs-dark',
+				inherit: true,
+				colors: {
+    "editor.background": '#0A1320', // Keep Lunex background
+    "editor.foreground": '#E0E0E0', // Light gray for general text (softer than pure white)
+    "editor.selectionBackground": '#00A2FF22', // Subtle blue selection with transparency
+    "editor.selectionHighlightBackground": '#00A2FF11', // Very faint selection highlight
+    "editorCursor.foreground": '#00A2FF', // Keep blue cursor to match Lunex
+    "editor.lineHighlightBackground": '#1C25260F', // Very subtle line highlight
+    "editor.lineHighlightBorder": '#00A2FF1A', // Faint blue glow for active line
+    "editorGutter.background": '#0A1320', // Gutter matches background
+    "editorGutter.foreground": '#666666', // Subtle gray for line numbers
+    "editorBracketMatch.background": '#00A2FF22', // Subtle bracket matching
+    "editorBracketMatch.border": '#00A2FF', // Blue border for bracket matching
+},
+				rules: [{
+    token: 'global',
+    foreground: '66B3FF', // Softer blue (modern alternative to #00A2FF)
+    fontStyle: "bold"
+},
 					{
-            token: 'keyword',
-            foreground: '#ff00ff', /* Purple for keywords */
-            fontStyle: "bold"
-        },
+    token: 'keyword',
+    foreground: 'A78BFA', // Pastel purple for a modern look
+    fontStyle: "bold"
+},
 					{
-            token: 'comment',
-            foreground: '#666666' /* Darker gray for comments */
-        },
+    token: 'comment',
+    foreground: '6B7280', // Softer gray for comments
+},
 					{
-            token: 'number',
-            foreground: '#ff9900' /* Orange for numbers */
-        },
+    token: 'number',
+    foreground: 'F4A261', // Pastel orange
+},
 					{
-            token: 'string',
-            foreground: '#99ff99' /* Light green for strings */
-        },
+    token: 'string',
+    foreground: '2DD4BF', // Pastel teal
+},
 					{
-            token: 'Method',
-            foreground: '#ff00ff' /* Purple for methods */
-        },
+    token: 'Method',
+    foreground: 'F472B6', // Pastel pink
+},
 				]
 			});
 
 editor = monaco.editor.create(document.getElementById('container'), {
     language: 'lua',
-    theme: "roblox-dark-gray", /* Updated theme */
+    theme: "net-theme-dark",
     acceptSuggestionOnEnter: "smart",
-    cursorSmoothCaretAnimation: true,
-    suggestOnTriggerCharacters: true,
-    suggestSelection: "recentlyUsed",
+    cursorSmoothCaretAnimation: true, // Smooth typing indicator
+    cursorBlinking: "smooth", // Smooth blinking for typing feedback
+    cursorStyle: "line",
+    cursorWidth: 2,
+    fontFamily: "'Cascadia Code', Consolas, monospace", // Added Cascadia Code with fallbacks
+    fontSize: 16, // Increased for larger text
+    fontWeight: "400",
+    fontLigatures: true,
+    letterSpacing: 0,
+    lineHeight: 20, // Consistent line height
+    padding: {
+        top: 0, // Remove padding to avoid offset
+        bottom: 0,
+    },
     folding: true,
     dragAndDrop: true,
     links: false,
@@ -2727,21 +2756,15 @@ editor = monaco.editor.create(document.getElementById('container'), {
     showFoldingControls: "always",
     smoothScrolling: true,
     stopRenderingLineAfter: 6500,
-    cursorBlinking: "smooth",
-    cursorSmoothCaretAnimation: true,
-    foldingHighlight: false,
-    fontLigatures: true,
-    formatOnPaste: true,
-    showDeprecated: true,
     suggest: {
         snippetsPreventQuickSuggestions: false,
     },
-    padding: {
-        top: 16, /* Reduced padding for tighter look */
-        bottom: 16,
+    automaticLayout: true,
+    disableLayerHinting: true, // Reduce font rendering issues
+    renderFinalNewline: "off",
+    experimental: {
+        useShadowDOM: false, // Avoid styling conflicts
     },
-    fontSize: 14, /* Adjusted font size */
-    lineHeight: 20, /* Consistent line height */
 });
 
       loadTabs();
