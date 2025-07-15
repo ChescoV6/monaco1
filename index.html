@@ -15,13 +15,13 @@
         { token: "comment", foreground: "#6B7280", fontStyle: "italic" }, // Subtle comments
     ],
     colors: {
-        "editor.background": "#1A0D2A",
-        "editor.foreground": "#C3A4E8",
-        "editorCursor.foreground": "#D19CFF",
-        "editorLineNumber.foreground": "#8A6BAF",
-        "editorLineNumber.activeForeground": "#D19CFF",
-        "editor.selectionBackground": "#3A1F5A80",
-        "editor.inactiveSelectionBackground": "#B266FF",
+        "editor.background": "#0F1923",
+        "editor.foreground": "#D0DCE8",
+        "editorCursor.foreground": "#00A2FF",
+        "editorLineNumber.foreground": "#4B5563",
+        "editorLineNumber.activeForeground": "#9CA3AF",
+        "editor.selectionBackground": "#1E2A38AA",
+        "editor.inactiveSelectionBackground": "#1E2A3880",
     },
 });
 		(function (root, name, factory) {
@@ -2614,43 +2614,37 @@ function setupAutosave() {
 			});
 
 			
-monaco.editor.defineTheme('net-theme-dark', {
+			monaco.editor.defineTheme('net-theme-dark', {
     base: 'vs-dark',
     inherit: true,
     colors: {
-        "editor.background": '#1A0D2A', // Dark purple background
-        "editor.foreground": '#C3A4E8', // Light purple text
-        "editorCursor.foreground": '#D19CFF', // Purple cursor
-        "editorLineNumber.foreground": '#8A6BAF', // Muted purple line numbers
-        "editorLineNumber.activeForeground": '#D19CFF', // Brighter purple for active line
-        "editor.selectionBackground": '#3A1F5A80' // Semi-transparent purple selection
+        "editor.background": '#141414', // Matches the UI background (RGB 20, 20, 20)
     },
-    rules: [
-        {
+    rules: [{
             token: 'global',
-            foreground: '#B266FF', // Vibrant purple for globals
+            foreground: '6699cc', // //FFFFFF
             fontStyle: "bold"
         },
         {
             token: 'keyword',
-            foreground: '#D19CFF', // Softer purple for keywords
+            foreground: 'cc99cc',
             fontStyle: "bold"
         },
         {
             token: 'comment',
-            foreground: '#8A6BAF' // Muted purple-gray for comments
+            foreground: '999999'
         },
         {
             token: 'number',
-            foreground: '#E6B8FF' // Light purple for numbers
+            foreground: 'f99157'
         },
         {
             token: 'string',
-            foreground: '#B266FF' // Match global for strings
+            foreground: '99CC99'
         },
         {
             token: 'Method',
-            foreground: '#D19CFF' // Softer purple for methods
+            foreground: 'ffa1dc'
         },
     ]
 });
