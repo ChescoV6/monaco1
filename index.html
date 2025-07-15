@@ -3,27 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<link href="https://cdn.jsdelivr.net/npm/cascadia-code@1.0.0/dist/cascadia-code.css" rel="stylesheet">
 	<script>
-	monaco.editor.defineTheme("custom-executor-dark", {
-    base: "vs-dark",
-    inherit: true,
-    rules: [
-        { token: "", foreground: "#D0DCE8", background: "#0F1923" }, // Main text and background
-        { token: "keyword", foreground: "#00A2FF" }, // Neon keywords
-        { token: "string", foreground: "#A3E4D7" }, // Soft cyan strings
-        { token: "comment", foreground: "#6B7280", fontStyle: "italic" }, // Subtle comments
-    ],
-    colors: {
-        "editor.background": "#0F1923",
-        "editor.foreground": "#D0DCE8",
-        "editorCursor.foreground": "#00A2FF",
-        "editorLineNumber.foreground": "#4B5563",
-        "editorLineNumber.activeForeground": "#9CA3AF",
-        "editor.selectionBackground": "#1E2A38AA",
-        "editor.inactiveSelectionBackground": "#1E2A3880",
-    },
-});
 		(function (root, name, factory) {
   'use strict';
   var objectTypes = {
@@ -2229,518 +2209,558 @@
 	</script>
 
 	<style type="text/css">
-    html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #141414; /* RGB 20, 20, 20 */
-        color: #ffffff; /* Primary text color */
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-    .editor-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        background-color: #141414;
-    }
-    .editor-container .tabs-container {
-        background-color: #141414;
-        display: flex;
-        height: 28px !important; /* Reduced from 40px to match reference */
-        overflow-x: auto;
-        border-bottom: 1px solid #1e1e1e;
-        gap: 0;
-    }
-    .editor-container .tab {
-        display: flex;
-        align-items: center;
-        padding: 0 10px !important; /* Reduced from 0 16px */
-        background-color: #141414;
-        color: #969696;
-        border-right: 1px solid #1e1e1e;
-        min-width: 90px !important; /* Reduced from 120px */
-        max-width: 160px !important; /* Reduced from 220px */
-        position: relative;
-        cursor: pointer;
-        transition: background-color 0.2s ease, color 0.2s ease;
-        user-select: none;
-    }
-    .editor-container .tab.active {
-        background-color: #1e1e1e;
-        color: #ffffff;
-    }
-    .editor-container .tab:hover {
-        background-color: #1e1e1e;
-    }
-    .editor-container .tab-icon {
-        width: 14px !important; /* Reduced from 18px */
-        height: 14px !important; /* Reduced from 18px */
-        margin-right: 4px !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        top: 1px;
-    }
-    .editor-container .tab-icon img {
-        width: 12px !important; /* Reduced from 16px */
-        height: 12px !important; /* Reduced from 16px */
-        filter: brightness(0.8);
-    }
-    .editor-container .tab-title {
-        flex-grow: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 11px !important; /* Reduced from 13px */
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-    .editor-container .tab-title.editing {
-        background: #1e1e1e;
-        border: 1px solid #525252;
-        padding: 1px 3px;
-        border-radius: 3px;
-        outline: none;
-        color: #ffffff;
-    }
-    .editor-container .tab-close {
-        margin-left: 4px !important; /* Reduced from 8px */
-        opacity: 0.7;
-        transition: opacity 0.2s ease, background-color 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 12px !important; /* Reduced from 16px */
-        height: 12px !important; /* Reduced from 16px */
-        border-radius: 3px;
-        color: #969696;
-    }
-    .editor-container .tab-close:hover {
-        opacity: 1;
-        background-color: #333;
-        color: #ffffff;
-    }
-    .editor-container .tab.new-tab {
-        min-width: 28px !important; /* Reduced from 40px to match container height */
-        max-width: 28px !important; /* Reduced from 40px */
-        justify-content: center;
-        background-color: #141414;
-        border: none;
-        color: #969696;
-        font-size: 12px !important; /* Reduced from 16px */
-    }
-    .editor-container .tab.new-tab:hover {
-        background-color: #1e1e1e;
-        color: #ffffff;
-    }
-    @keyframes tabAppear {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #141414; /* RGB(20, 20, 20) as hex */
+    color: #d1c4ff; /* Soft purple for general text */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Modern, readable font */
+    font-size: 14px; /* Base font size for consistency */
+}
+	</style>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+
+<body>
+  <div class="editor-container">
+      <div id="tabs-container" class="tabs-container"></div>
+      <div id="container" style="width:100%;height:calc(100% - 35px);"></div>
+  </div>
+  <style>
+      .editor-container {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+      }
+.tabs-container {
+    background-color: #1c1c1c; /* Slightly lighter than background */
+    display: flex;
+    height: 42px; /* Taller for comfort */
+    overflow-x: auto;
+    border-bottom: 1px solid #2e2e2e; /* Softer border */
+    gap: 4px; /* More spacing between tabs */
+    padding: 0 10px; /* Additional padding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Gentle shadow */
+}
+      
+.tab {
+    display: flex;
+    align-items: center;
+    padding: 0 16px; /* More padding */
+    background-color: #1e1e1e; /* Light grayish background */
+    color: #d1c4ff; /* Soft purple text */
+    border: 1px solid #2e2e2e; /* Subtle border */
+    border-bottom: none;
+    border-radius: 6px 6px 0 0; /* Rounded edges */
+    min-width: 120px;
+    max-width: 200px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    user-select: none;
+    font-size: 14px;
+    margin: 4px 0; /* Increased margin */
+}
+.tab:hover {
+    background-color: #252525; /* Lighter hover */
+    color: #e0d7ff; /* Brighter text */
+    transform: translateY(-2px); /* More pronounced lift */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+.tab.active {
+    background-color: #141414; /* Matches background */
+    color: #e6e6fa; /* Very light purple for high contrast */
+    border-bottom: 3px solid #5d3fd3; /* Thicker theme accent */
+    font-weight: 500;
+    transform: translateY(0);
+    box-shadow: none; /* Remove shadow on active */
+}
+.tab-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; /* More spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 1px;
+}
+.tab-icon img {
+    filter: brightness(1.8); /* Brighter icon */
+    transition: filter 0.2s ease;
+}
+.tab:hover .tab-icon img {
+    filter: brightness(2.2); /* Brighter on hover */
+}
+.tab-title {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.tab-title.editing {
+    background: #252525; /* Lighter editing background */
+    border: 1px solid #3e3e3e; /* Softer border */
+    padding: 3px 6px; /* More padding */
+    border-radius: 4px;
+    outline: none;
+    color: #d1c4ff;
+}
+.tab-close {
+    margin-left: 10px; /* More spacing */
+    opacity: 0.7;
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    color: #999; /* Neutral gray */
+    font-size: 12px; /* Smaller 'x' */
+}
+.tab-close {
+    margin-left: 10px; /* More spacing */
+    opacity: 0.7;
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px; /* Reduced from 18px */
+    height: 14px; /* Reduced from 18px */
+    border-radius: 3px; /* Square with slight rounding */
+    color: #999; /* Neutral gray */
+    font-size: 10px; /* Reduced from 12px to match size */
+}
+.tab-close:hover {
+    opacity: 1;
+    background-color: rgba(93, 63, 211, 0.25); /* Softer theme hover */
+    color: #e6e6fa; /* Match active text */
+    transform: scale(1.1); /* Slight scale on hover */
+}
+.tab.new-tab {
+    min-width: 36px;
+    max-width: 36px;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    margin-left: 6px;
+    color: #5d3fd3; /* Theme color */
+    font-size: 20px;
+    line-height: 36px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+    border-radius: 4px; /* Square with slight rounding */
+}
+.tab.new-tab:hover {
+    background-color: rgba(93, 63, 211, 0.15); /* Subtle theme hover */
+    color: #e0d7ff;
+    transform: scale(1.1); /* Slight scale on hover */
+}
+      @keyframes tabAppear {
+          from {
+              opacity: 0;
+              transform: translateY(-10px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      @keyframes tabRemove {
+          to {
+              opacity: 0;
+              transform: translateX(-10px);
+          }
+      }
+      .tab.new {
+          animation: tabAppear 0.2s ease-out;
+      }
+      .tab.removing {
+          animation: tabRemove 0.2s ease-out;
+      }
+  </style>
+  <script src="vs/loader.js"></script>
+  <script type="text/javascript">
+      require.config({
+          paths: {
+              'vs': 'vs'
+          }
+      });
+
+      let editor;
+      let Proposals = [];
+      let currentTab = null;
+      let tabs = [];
+
+      const luaIcon = `<img src="luaicon.png" alt="Lua Icon" style="width: 20px; height: 20px;" />`;
+
+        class Tab {
+            constructor(title, content = '') {
+                this.id = 'tab-' + Math.random().toString(36).substr(2, 9);
+                this.title = title;
+                this.content = content;
+                this.element = null;
+            }
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+
+        function saveTabs() {
+          const tabsData = tabs.map(tab => ({
+        id: tab.id,
+        title: tab.title,
+        content: tab.content
+    }));
+    localStorage.setItem('editorTabs', JSON.stringify(tabsData));
+}
+function loadTabs() {
+    const savedTabs = localStorage.getItem('editorTabs');
+    if (savedTabs) {
+        const tabsData = JSON.parse(savedTabs);
+        tabsData.forEach(tabData => {
+            addTab(tabData.title, tabData.content, tabData.id);
+        });
+    } else {
+        addTab('New Tab 1'); 
+    }
+}
+
+        function makeEditable(titleElement, tab) {
+            titleElement.contentEditable = true;
+            titleElement.classList.add('editing');
+            titleElement.focus();
+            
+            const range = document.createRange();
+            range.selectNodeContents(titleElement);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+
+            function finishEditing() {
+                titleElement.contentEditable = false;
+                titleElement.classList.remove('editing');
+                const newTitle = titleElement.textContent.trim();
+                if (newTitle) {
+                    tab.title = newTitle;
+                } else {
+                    titleElement.textContent = tab.title;
+                }
+            }
+
+            titleElement.onblur = finishEditing;
+            titleElement.onkeydown = (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    finishEditing();
+                }
+                if (e.key === 'Escape') {
+                    titleElement.textContent = tab.title;
+                    finishEditing();
+                }
+            };
         }
-    }
-    @keyframes tabRemove {
-        to {
-            opacity: 0;
-            transform: translateX(-10px);
+
+        function createTabElement(tab) {
+            const tabElement = document.createElement('div');
+            tabElement.className = 'tab new';
+            tabElement.setAttribute('data-tab-id', tab.id);
+            
+            const iconElement = document.createElement('div');
+            iconElement.className = 'tab-icon';
+            iconElement.innerHTML = luaIcon;
+            
+            const titleElement = document.createElement('div');
+            titleElement.className = 'tab-title';
+            titleElement.textContent = tab.title;
+            
+            titleElement.ondblclick = (e) => {
+                e.stopPropagation();
+                makeEditable(titleElement, tab);
+            };
+            
+            const closeButton = document.createElement('div');
+            closeButton.className = 'tab-close';
+            closeButton.innerHTML = '✕';
+            closeButton.onclick = (e) => {
+                e.stopPropagation();
+                if (tabs.length > 1) {
+                    removeTab(tab.id);
+                }
+            };
+            
+            tabElement.appendChild(iconElement);
+            tabElement.appendChild(titleElement);
+            tabElement.appendChild(closeButton);
+            
+            tabElement.onclick = () => switchTab(tab.id);
+            
+            return tabElement;
         }
+
+        function createNewTabButton() {
+            const newTabButton = document.createElement('div');
+            newTabButton.className = 'tab new-tab';
+            newTabButton.innerHTML = '+';
+            newTabButton.onclick = () => {
+                const newTab = addTab('New Tab ' + (tabs.length + 1));
+            };
+            return newTabButton;
+        }
+
+        function addTab(title, content = '', id = null) {
+    const defaultText = "";    
+    if (!content) {
+        content = defaultText;
     }
-    .editor-container .tab.new {
-        animation: tabAppear 0.2s ease-out;
+    
+    const tab = new Tab(title, content);
+    if (id) tab.id = id;
+    tabs.push(tab);
+    
+    const tabsContainer = document.getElementById('tabs-container');
+    const newTabButton = tabsContainer.querySelector('.new-tab');
+    
+    tab.element = createTabElement(tab);
+    if (newTabButton) {
+        tabsContainer.insertBefore(tab.element, newTabButton);
+    } else {
+        tabsContainer.appendChild(tab.element);
+        tabsContainer.appendChild(createNewTabButton());
     }
-    .editor-container .tab.removing {
-        animation: tabRemove 0.2s ease-out;
-    }
-    .editor-container .editor {
-        width: 100%;
-        height: calc(100% - 28px) !important; /* Adjusted from calc(100% - 40px) */
-        background-color: #141414;
-    }
-</style>
-<script src="vs/loader.js"></script>
-<script src="vs/loader.js"></script>
-<script type="text/javascript">
-    require.config({
-        paths: {
-            'vs': 'vs'
+    
+    switchTab(tab.id);
+    saveTabs();
+    return tab;
+}
+
+function removeTab(tabId) {
+    const tabIndex = tabs.findIndex(t => t.id === tabId);
+    if (tabIndex === -1) return;
+    
+    if (tabs.length <= 1) return;
+    
+    const tab = tabs[tabIndex];
+    tab.element.classList.add('removing');
+    
+    setTimeout(() => {
+        tabs.splice(tabIndex, 1);
+        tab.element.remove();
+        
+        if (currentTab === tabId) {
+            switchTab(tabs[Math.min(tabIndex, tabs.length - 1)].id);
+        }
+        saveTabs();
+    }, 200);
+}
+function switchTab(tabId) {
+    const tab = tabs.find(t => t.id === tabId);
+    if (!tab) return;
+    
+    tabs.forEach(t => {
+        if (t.element) {
+            t.element.classList.remove('active');
         }
     });
-
-    let editor;
-    let Proposals = [];
-    let currentTab = null;
-    let tabs = [];
-
-    const luaIcon = `<img src="luaicon.png" alt="Lua Icon" style="width: 20px; height: 20px;" />`;
-
-    class Tab {
-        constructor(title, content = '') {
-            this.id = 'tab-' + Math.random().toString(36).substr(2, 9);
-            this.title = title;
-            this.content = content;
-            this.element = null;
-        }
-    }
-
-    function saveTabs() {
-        const tabsData = tabs.map(tab => ({
-            id: tab.id,
-            title: tab.title,
-            content: tab.content
-        }));
-        localStorage.setItem('editorTabs', JSON.stringify(tabsData));
-    }
-
-    function loadTabs() {
-        const savedTabs = localStorage.getItem('editorTabs');
-        if (savedTabs) {
-            const tabsData = JSON.parse(savedTabs);
-            tabsData.forEach(tabData => {
-                addTab(tabData.title, tabData.content, tabData.id);
-            });
-            if (tabs.length > 0) {
-                switchTab(tabs[0].id);
-            }
-        } else {
-            addTab('New Tab 1'); // Ensure at least one tab exists
-        }
-    }
-
-    function makeEditable(titleElement, tab) {
-        titleElement.contentEditable = true;
-        titleElement.classList.add('editing');
-        titleElement.focus();
-        
-        const range = document.createRange();
-        range.selectNodeContents(titleElement);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-
-        function finishEditing() {
-            titleElement.contentEditable = false;
-            titleElement.classList.remove('editing');
-            const newTitle = titleElement.textContent.trim();
-            if (newTitle) {
-                tab.title = newTitle;
-            } else {
-                titleElement.textContent = tab.title;
+    
+    if (currentTab !== tabId) {
+        if (currentTab) {
+            const oldTab = tabs.find(t => t.id === currentTab);
+            if (oldTab) {
+                oldTab.content = editor.getValue();
+                saveTabs();
             }
         }
-
-        titleElement.onblur = finishEditing;
-        titleElement.onkeydown = (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                finishEditing();
-            }
-            if (e.key === 'Escape') {
-                titleElement.textContent = tab.title;
-                finishEditing();
-            }
-        };
+        
+        const contentToSet = tab.content.trim() === '' ? "" : tab.content;        editor.setValue(contentToSet);
+        tab.element.classList.add('active');
+        currentTab = tabId;
     }
+}
 
-    function createTabElement(tab) {
-        const tabElement = document.createElement('div');
-        tabElement.className = 'tab new';
-        tabElement.setAttribute('data-tab-id', tab.id);
-        
-        const iconElement = document.createElement('div');
-        iconElement.className = 'tab-icon';
-        iconElement.innerHTML = luaIcon;
-        
-        const titleElement = document.createElement('div');
-        titleElement.className = 'tab-title';
-        titleElement.textContent = tab.title;
-        
-        titleElement.ondblclick = (e) => {
-            e.stopPropagation();
-            makeEditable(titleElement, tab);
-        };
-        
-        const closeButton = document.createElement('div');
-        closeButton.className = 'tab-close';
-        closeButton.innerHTML = '✕';
-        closeButton.onclick = (e) => {
-            e.stopPropagation();
-            if (tabs.length > 1) {
-                removeTab(tab.id);
-            }
-        };
-        
-        tabElement.appendChild(iconElement);
-        tabElement.appendChild(titleElement);
-        tabElement.appendChild(closeButton);
-        
-        tabElement.onclick = () => switchTab(tab.id);
-        
-        return tabElement;
-    }
-
-    function createNewTabButton() {
-        const newTabButton = document.createElement('div');
-        newTabButton.className = 'tab new-tab';
-        newTabButton.innerHTML = '+';
-        newTabButton.onclick = () => {
-            const newTab = addTab('New Tab ' + (tabs.length + 1));
-        };
-        return newTabButton;
-    }
-
-    function addTab(title, content = '', id = null) {
-        const defaultText = "";    
-        if (!content) {
-            content = defaultText;
-        }
-        
-        const tab = new Tab(title, content);
-        if (id) tab.id = id;
-        tabs.push(tab);
-        
-        const tabsContainer = document.getElementById('tabs-container');
-        const newTabButton = tabsContainer.querySelector('.new-tab');
-        
-        tab.element = createTabElement(tab);
-        if (newTabButton) {
-            tabsContainer.insertBefore(tab.element, newTabButton);
-        } else {
-            tabsContainer.appendChild(tab.element);
-            tabsContainer.appendChild(createNewTabButton());
-        }
-        
-        switchTab(tab.id);
-        saveTabs();
-        return tab;
-    }
-
-    function removeTab(tabId) {
-        const tabIndex = tabs.findIndex(t => t.id === tabId);
-        if (tabIndex === -1) return;
-        
-        if (tabs.length <= 1) return;
-        
-        const tab = tabs[tabIndex];
-        tab.element.classList.add('removing');
-        
-        setTimeout(() => {
-            tabs.splice(tabIndex, 1);
-            tab.element.remove();
-            
-            if (currentTab === tabId) {
-                switchTab(tabs[Math.min(tabIndex, tabs.length - 1)].id);
-            }
-            saveTabs();
-        }, 200);
-    }
-
-    function switchTab(tabId) {
-        const tab = tabs.find(t => t.id === tabId);
-        if (!tab || !editor) return;
-        
-        tabs.forEach(t => {
-            if (t.element) {
-                t.element.classList.remove('active');
-            }
-        });
-        
-        if (currentTab !== tabId) {
+function setupAutosave() {
+    let saveTimeout;
+    editor.onDidChangeModelContent(() => {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
             if (currentTab) {
-                const oldTab = tabs.find(t => t.id === currentTab);
-                if (oldTab) {
-                    oldTab.content = editor.getValue();
+                const tab = tabs.find(t => t.id === currentTab);
+                if (tab) {
+                    tab.content = editor.getValue();
                     saveTabs();
                 }
             }
-            
-            const contentToSet = tab.content.trim() === '' ? "" : tab.content;
-            editor.setValue(contentToSet);
-            tab.element.classList.add('active');
-            currentTab = tabId;
-        }
-    }
+        }, 1); 
+    });
+}
 
-    function setupAutosave() {
-        let saveTimeout;
-        editor.onDidChangeModelContent(() => {
-            clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(() => {
-                if (currentTab) {
-                    const tab = tabs.find(t => t.id === currentTab);
-                    if (tab) {
-                        tab.content = editor.getValue();
-                        saveTabs();
-                    }
-                }
-            }, 1); 
-        });
-    }
 
     var enableAntiSkid;
     var disableAntiSkid;
-    var SetText;
-    var ShowMinimap;
-    var HideMinimap;
-    var EnableAutoComplete;
-    var DisableAutoComplete;
-    var GetText;
-    var AddIntellisense;
-    var Refresh;
+		var SetText;
+		var ShowMinimap;
+		var HideMinimap;
+		var EnableAutoComplete;
+		var DisableAutoComplete;
+		var GetText;
+		var AddIntellisense;
+		var Refresh;
+	
 
-    require(['vs/editor/editor.main'], function () {
-        function getDependencyProposals() {
-            return Proposals;
-        }
 
-        monaco.languages.registerCompletionItemProvider('lua', {
-            provideCompletionItems: function (model, position) {
-                return getDependencyProposals();
-            },
-            triggerCharacters: ['.', ':', '"'],
-        });
+		require(['vs/editor/editor.main'], function () {
+			function getDependencyProposals() {
+				return Proposals;
+			}
 
-        monaco.editor.defineTheme('net-theme-dark', {
-            base: 'vs-dark',
-            inherit: true,
-            colors: {
-                "editor.background": '#141414', // Matches the UI background (RGB 20, 20, 20)
-            },
-            rules: [{
-                    token: 'global',
-                    foreground: '6699cc', // //FFFFFF
-                    fontStyle: "bold"
-                },
-                {
-                    token: 'keyword',
-                    foreground: 'cc99cc',
-                    fontStyle: "bold"
-                },
-                {
-                    token: 'comment',
-                    foreground: '999999'
-                },
-                {
-                    token: 'number',
-                    foreground: 'f99157'
-                },
-                {
-                    token: 'string',
-                    foreground: '99CC99'
-                },
-                {
-                    token: 'Method',
-                    foreground: 'ffa1dc'
-                },
-            ]
-        });
+			monaco.languages.registerCompletionItemProvider('lua', {
+				provideCompletionItems: function (model, position) {
+					return getDependencyProposals();
+				},
+				triggerCharacters: ['.', ':', '"'],
+			});
 
-        editor = monaco.editor.create(document.getElementById('container'), {
-            language: 'lua',
-            theme: "net-theme-dark",
-            acceptSuggestionOnEnter: "smart",
-            cursorSmoothCaretAnimation: true,
-            cursorBlinking: "smooth",
-            cursorStyle: "line",
-            cursorWidth: 2,
-            fontFamily: "'Cascadia Code', Consolas, monospace",
-            fontSize: 14, // Decreased from 16
-            fontWeight: "400",
-            fontLigatures: true,
-            letterSpacing: 0,
-            lineHeight: 18, // Decreased from 20
-            padding: {
-                top: 0,
-                bottom: 0,
-            },
-            folding: true,
-            dragAndDrop: true,
-            links: false,
-            minimap: {
-                enabled: false,
-            },
-            showFoldingControls: "always",
-            smoothScrolling: true,
-            stopRenderingLineAfter: 6500,
-            suggest: {
-                snippetsPreventQuickSuggestions: false,
-            },
-            automaticLayout: true,
-            disableLayerHinting: true,
-            renderFinalNewline: "off",
-            experimental: {
-                useShadowDOM: false,
-            },
-        });
+			
+			monaco.editor.defineTheme('net-theme-dark', {
+				base: 'vs-dark',
+				inherit: true,
+				colors: {
+    "editor.background": '#141414', // RGB(20, 20, 20) as hex
+    "editor.lineHighlightBackground": '#1c1c1c', // Softer line highlight
+    "editorCursor.foreground": '#5d3fd3', // Theme color for cursor
+    "editor.selectionBackground": '#3a2f66', // Subtle selection color from theme
+				},
+				rules: [{
+						token: 'global',
+						foreground: '87ceeb', // //FFFFFF
+						fontStyle: "bold"
+					},
+					{
+						token: 'keyword',
+						foreground: '5d3fd3',
+						fontStyle: "bold"
+					},
+					{
+						token: 'comment',
+						foreground: '7f7f7f'
+					},
+					{
+						token: 'number',
+						foreground: 'ff8c69'
+					},
+					{
+						token: 'string',
+						foreground: '98fb98'
+					},
+					{
+						token: 'Method',
+						foreground: 'ff99cc'
+					},
+				]
+			});
 
-        loadTabs(); // Ensure tabs load after editor is initialized
-        setupAutosave();
+			editor = monaco.editor.create(document.getElementById('container'), {
+				language: 'lua',
+				theme: "net-theme-dark",
+				acceptSuggestionOnEnter: "smart",
+				cursorSmoothCaretAnimation: true,
+				suggestOnTriggerCharacters: true,
+				suggestSelection: "recentlyUsed",
+				folding: true,
+					dragAndDrop: true,
+					links: false,
+					minimap: {
+						enabled: false,
+					},
+					showFoldingControls: "always",
+					smoothScrolling: true,
+					stopRenderingLineAfter: 6500,
+					cursorBlinking: "smooth",
+					cursorSmoothCaretAnimation: true,
+					foldingHighlight: false,
+					fontLigatures: true,
+					formatOnPaste: true,
+					showDeprecated: true,
+					suggest: {
+						snippetsPreventQuickSuggestions: false,
+					},
+					padding: {
+						top: 24,
+					}
+			});
 
-        EnableAutoComplete = function(){
-            editor.updateOptions({
-                suggestOnTriggerCharacters: true,
-                acceptSuggestionOnEnter : "smart",
-                wordBasedSuggestions : true
-            });
-        }
+      loadTabs();
+      setupAutosave();
 
-        DisableAutoComplete = function(){
-            editor.updateOptions({
-                suggestOnTriggerCharacters: false,
-                acceptSuggestionOnEnter : "off",
-                wordBasedSuggestions : false
-            });
-        }
+			EnableAutoComplete = function(){
+				editor.updateOptions({
+					suggestOnTriggerCharacters: true,
+					acceptSuggestionOnEnter : "smart",
+					wordBasedSuggestions : true
+				});
+			}
 
-        window.onresize = function () {
-            editor.layout();
-        };
+			DisableAutoComplete = function(){
+				editor.updateOptions({
+					suggestOnTriggerCharacters: false,
+					acceptSuggestionOnEnter : "off",
+					wordBasedSuggestions : false
+				});
+			}
+
+			window.onresize = function () {
+				editor.layout();
+			};
    
-        ShowMinimap = function () {
-            editor.updateOptions({
-                minimap: {
-                    enabled: true,
-                }
-            });
-        }
+			ShowMinimap = function () {
+				editor.updateOptions({
+					minimap: {
+						enabled: true,
+					}
+				});
+			}
 
-        HideMinimap = function () {
-            editor.updateOptions({
-                minimap: {
-                    enabled: false,
-                }
-            });
-        }
+			HideMinimap = function () {
+				editor.updateOptions({
+					minimap: {
+						enabled: false,
+					}
+				});
+			}
 
-        function handleover() {
-            document.body.style.filter = "blur(0px)"
-        }
-        function handleleave() {
-            document.body.style.filter = "blur(5px)"
-        }
-        enableAntiSkid= function() {
-            document.body.style.filter = "blur(5px)";
-            document.body.addEventListener("mouseover", handleover);
-            document.body.addEventListener("mouseleave", handleleave);
-        }
-        disableAntiSkid = function() {
-            document.body.style.filter = "blur(0px)";
-            document.body.removeEventListener("mouseover", handleover, false);
-            document.body.removeEventListener("mouseleave", handleleave, false);
-        }
-        editor.onDidChangeModelContent(function (e) {
+      function handleover()
+      {
+        document.body.style.filter = "blur(0px)"
+      }
+      function handleleave()
+      {
+        document.body.style.filter = "blur(5px)"
+      }
+      enableAntiSkid= function()
+      {
+        document.body.style.filter = "blur(5px)";
+        document.body.addEventListener("mouseover",handleover);
+        document.body.addEventListener("mouseleave",handleleave);
+      }
+      disableAntiSkid = function()
+      {
+        document.body.style.filter = "blur(0px)";
+        document.body.removeEventListener("mouseover",handleover,false);
+        document.body.removeEventListener("mouseleave",handleleave,false);
+        
+      }
+      editor.onDidChangeModelContent(function (e) {
             try {
                 this.luaparse.parse(editor.getValue());
-                monaco.editor.setModelMarkers(editor.getModel(), 'luaparse', []);
+                monaco.editor.setModelMarkers(editor.getModel(),'luaparse');
             }
             catch(Err) {
-                monaco.editor.setModelMarkers(editor.getModel(), 'luaparse', [{
+                monaco.editor.setModelMarkers(editor.getModel(),'luaparse',[{
                     startLineNumber: Err.line,
                     startColumn: Err.column,
                     endLineNumber: Err.line,
@@ -2750,121 +2770,123 @@
                 }]);
             }
         });
-        GetText = function () {
-            return editor.getValue();
-        }
+			GetText = function () {
+				return editor.getValue();
+			}
 
-        SetText = function (x) {
-            editor.setValue(x);
-        }
+			SetText = function (x) {
+				editor.setValue(x);
+			}
 
-        AddIntellisense = function (l, k, d, i) {
-            var t;
-            switch (k) {
-                case "Class":
-                    t = monaco.languages.CompletionItemKind.Class;
-                    break;
-                case "Color":
-                    t = monaco.languages.CompletionItemKind.Color;
-                    break;
-                case "Constructor":
-                    t = monaco.languages.CompletionItemKind.Constructor;
-                    break;
-                case "Enum":
-                    t = monaco.languages.CompletionItemKind.Enum;
-                    break;
-                case "Field":
-                    t = monaco.languages.CompletionItemKind.Field;
-                    break;
-                case "File":
-                    t = monaco.languages.CompletionItemKind.File;
-                    break;
-                case "Folder":
-                    t = monaco.languages.CompletionItemKind.Folder;
-                    break;
-                case "Function":
-                    t = monaco.languages.CompletionItemKind.Function;
-                    break;
-                case "Interface":
-                    t = monaco.languages.CompletionItemKind.Interface;
-                    break;
-                case "Keyword":
-                    t = monaco.languages.CompletionItemKind.Keyword;
-                    break;
-                case "Method":
-                    t = monaco.languages.CompletionItemKind.Method;
-                    break;
-                case "Module":
-                    t = monaco.languages.CompletionItemKind.Module;
-                    break;
-                case "Property":
-                    t = monaco.languages.CompletionItemKind.Property;
-                    break;
-                case "Reference":
-                    t = monaco.languages.CompletionItemKind.Reference;
-                    break;
-                case "Snippet":
-                    t = monaco.languages.CompletionItemKind.Snippet;
-                    break;
-                case "Text":
-                    t = monaco.languages.CompletionItemKind.Text;
-                    break;
-                case "Unit":
-                    t = monaco.languages.CompletionItemKind.Unit;
-                    break;
-                case "Value":
-                    t = monaco.languages.CompletionItemKind.Value;
-                    break;
-                case "Variable":
-                    t = monaco.languages.CompletionItemKind.Variable;
-                    break;
-            }
+			AddIntellisense = function (l, k, d, i) {
+				var t;
+				switch (k) {
+					case "Class":
+						t = monaco.languages.CompletionItemKind.Class;
+						break;
+					case "Color":
+						t = monaco.languages.CompletionItemKind.Color;
+						break;
+					case "Constructor":
+						t = monaco.languages.CompletionItemKind.Constructor;
+						break;
+					case "Enum":
+						t = monaco.languages.CompletionItemKind.Enum;
+						break;
+					case "Field":
+						t = monaco.languages.CompletionItemKind.Field;
+						break;
+					case "File":
+						t = monaco.languages.CompletionItemKind.File;
+						break;
+					case "Folder":
+						t = monaco.languages.CompletionItemKind.Folder;
+						break;
+					case "Function":
+						t = monaco.languages.CompletionItemKind.Function;
+						break;
+					case "Interface":
+						t = monaco.languages.CompletionItemKind.Interface;
+						break;
+					case "Keyword":
+						t = monaco.languages.CompletionItemKind.Keyword;
+						break;
+					case "Method":
+						t = monaco.languages.CompletionItemKind.Method;
+						break;
+					case "Module":
+						t = monaco.languages.CompletionItemKind.Module;
+						break;
+					case "Property":
+						t = monaco.languages.CompletionItemKind.Property;
+						break;
+					case "Reference":
+						t = monaco.languages.CompletionItemKind.Reference;
+						break;
+					case "Snippet":
+						t = monaco.languages.CompletionItemKind.Snippet;
+						break;
+					case "Text":
+						t = monaco.languages.CompletionItemKind.Text;
+						break;
+					case "Unit":
+						t = monaco.languages.CompletionItemKind.Unit;
+						break;
+					case "Value":
+						t = monaco.languages.CompletionItemKind.Value;
+						break;
+					case "Variable":
+						t = monaco.languages.CompletionItemKind.Variable;
+						break;
+				}
 
-            Proposals.push({
-                label: l,
-                kind: t,
-                detail: d,
-                insertText: i
-            });
-        }
-        async function load() {
-            var docs = await(await fetch('https://raw.githubusercontent.com/iceycold3/monaco/refs/heads/main/lib.json')).json();
+				Proposals.push({
+					label: l,
+					kind: t,
+					detail: d,
+					insertText: i
+				});
+			}
+			async function load() {
+				var docs = await(await fetch('https://raw.githubusercontent.com/iceycold3/monaco/refs/heads/main/lib.json')).json();
 
-            for (var prop in docs) {
-                for(var item in docs[prop]) {
-                    const document = docs[prop][item];
-                    AddIntellisense(document.label, document.type, document.description, document.insert);
-                }
-            }
+				for (var prop in docs) {
+  					  for(var item in docs[prop])
+					  {
+						    const document = docs[prop][item];
+							AddIntellisense(document.label, document.type, document.description, document.insert);
+					  }
+				}
 
-            for (const Key of ["_G", "_VERSION", "Enum", "game", "plugin", "shared", "script", "workspace", "DebuggerManager", "elapsedTime", "LoadLibrary", "PluginManager", "settings", "tick", "time", "typeof", "UserSettings"])
-                AddIntellisense(Key, "Keyword", Key, Key);
+				for (const Key of ["_G", "_VERSION", "Enum", "game", "plugin", "shared", "script", "workspace", "DebuggerManager", "elapsedTime", "LoadLibrary", "PluginManager", "settings", "tick", "time", "typeof", "UserSettings"])
+                    AddIntellisense(Key, "Keyword", Key, Key);
 
-            for (const Key of ["and", "break", "do", "else", "elseif", "end", "false", "for", "function", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"])
-                AddIntellisense(Key, "Variable", Key, Key);
+				for (const Key of ["and", "break", "do", "else", "elseif", "end", "false", "for", "function", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"])
+                    AddIntellisense(Key, "Variable", Key, Key);
 
-            for (const Key of ["math.abs", "math.acos", "math.asin", "math.atan", "math.atan2", "math.ceil", "math.cos", "math.cosh", "math.deg", "math.exp", "math.floor", "math.fmod", "math.frexp", "math.huge", "math.ldexp", "math.log", "math.max", "math.min", "math.modf", "math.pi", "math.pow", "math.rad", "math.random", "math.randomseed", "math.sin", "math.sinh", "math.sqrt", "math.tan", "math.tanh", "table.concat", "table.foreach", "table.foreachi", "table.sort", "table.insert", "table.remove", "Color3.new", "Instance.new", "BrickColor.new", "Vector3.new", "Vector2.new", "debug.gethook", "debug.getinfo", "debug.getlocal", "debug.getmetatable", "debug.getregistry", "debug.getupvalue", "debug.getuservalue", "debug.sethook", "debug.setlocal", "debug.setmetatable", "debug.setupvalue", "debug.setuservalue", "debug.traceback", "debug.upvalueid", "debug.upvaluejoin", "string.byte", "string.char", "string.dump", "string.find", "string.format", "string.gmatch", "string.gsub", "string.len", "string.lower", "string.match", "string.rep", "string.reverse", "string.sub", "string.upper", "coroutine.create", "coroutine.resume", "coroutine.running", "coroutine.status", "coroutine.wrap", "coroutine.yield"])
-                AddIntellisense(Key, "Method", Key, Key);
+                for (const Key of ["math.abs", "math.acos", "math.asin", "math.atan", "math.atan2", "math.ceil", "math.cos", "math.cosh", "math.deg", "math.exp", "math.floor", "math.fmod", "math.frexp", "math.huge", "math.ldexp", "math.log", "math.max", "math.min", "math.modf", "math.pi", "math.pow", "math.rad", "math.random", "math.randomseed", "math.sin", "math.sinh", "math.sqrt", "math.tan", "math.tanh", "table.concat", "table.foreach", "table.foreachi", "table.sort", "table.insert", "table.remove", "Color3.new", "Instance.new", "BrickColor.new", "Vector3.new", "Vector2.new", "debug.gethook", "debug.getinfo", "debug.getlocal", "debug.getmetatable", "debug.getregistry", "debug.getupvalue", "debug.getuservalue", "debug.sethook", "debug.setlocal", "debug.setmetatable", "debug.setupvalue", "debug.setuservalue", "debug.traceback", "debug.upvalueid", "debug.upvaluejoin", "string.byte", "string.char", "string.dump", "string.find", "string.format", "string.gmatch", "string.gsub", "string.len", "string.lower", "string.match", "string.rep", "string.reverse", "string.sub", "string.upper", "coroutine.create", "coroutine.resume", "coroutine.running", "coroutine.status", "coroutine.wrap", "coroutine.yield"])
+					AddIntellisense(Key, "Method", Key, Key);
 
-            for (const Key of ["Drawing", "debug", "Instance", "Color3", "Vector3", "Vector2", "BrickColor", "math", "table", "string", "coroutine", "Humanoid", "ClickDetector", "LocalScript", "Model", "ModuleScript", "Mouse", "Part", "Player", "Script", "Tool", "RunService", "UserInputService", "Workspace"])
-                AddIntellisense(Key, "Class", Key, Key);
+				for (const Key of ["Drawing", "debug", "Instance", "Color3", "Vector3", "Vector2", "BrickColor", "math", "table", "string", "coroutine", "Humanoid", "ClickDetector", "LocalScript", "Model", "ModuleScript", "Mouse", "Part", "Player", "Script", "Tool", "RunService", "UserInputService", "Workspace"])
+					AddIntellisense(Key, "Class", Key, Key);
 
-            for (const Key of ["print", "warn", "wait", "info", "printidentity", "assert", "collectgarbage", "error", "getfenv", "getmetatable", "setmetatable", "ipairs", "loadfile", "loadstring", "newproxy", "next", "pairs", "pcall", "spawn", "rawequal", "rawget", "rawset", "select", "tonumber", "tostring", "type", "unpack", "xpcall", "delay", "stats", ":Remove()", ":BreakJoints()", ":GetChildren()", ":FindFirstChild()", ":FireServer()", ":InvokeServer()", ":ClearAllChildren()", ":Clone()", ":Destroy()", ":FindFirstAncestor()", ":FindFirstAncestorOfClass()", ":FindFirstAncestorWhichIsA()", ":FindFirstChildOfClass()", ":FindFirstChildWhichIsA()", ":GetDebugId()", ":GetDescendants()", ":GetFullName()", ":IsA()", ":GetPropertyChangedSignal()", ":IsAncestorOf()", ":IsDescendantOf()", ":WaitForChild()", ":Connect()", ":AncestryChanged()", ":Changed()", ":ChildAdded()", ":ChildRemoved()", ":DescendantAdded()", ":DescendantRemoving()", ":GetService()", ":GetObjects()", ":HttpGet()", ":Wait()"])
-                AddIntellisense(Key, "Function", Key, Key.includes(":") ? Key.substring(1, Key.length) : Key);
+				for (const Key of ["print", "warn", "wait", "info", "printidentity", "assert", "collectgarbage", "error", "getfenv", "getmetatable", "setmetatable", "ipairs", "loadfile", "loadstring", "newproxy", "next", "pairs", "pcall", "spawn", "rawequal", "rawget", "rawset", "select", "tonumber", "tostring", "type", "unpack", "xpcall", "delay", "stats", ":Remove()", ":BreakJoints()", ":GetChildren()", ":FindFirstChild()", ":FireServer()", ":InvokeServer()", ":ClearAllChildren()", ":Clone()", ":Destroy()", ":FindFirstAncestor()", ":FindFirstAncestorOfClass()", ":FindFirstAncestorWhichIsA()", ":FindFirstChildOfClass()", ":FindFirstChildWhichIsA()", ":GetDebugId()", ":GetDescendants()", ":GetFullName()", ":IsA()", ":GetPropertyChangedSignal()", ":IsAncestorOf()", ":IsDescendantOf()", ":WaitForChild()", ":Connect()", ":AncestryChanged()", ":Changed()", ":ChildAdded()", ":ChildRemoved()", ":DescendantAdded()", ":DescendantRemoving()", ":GetService()", ":GetObjects()", ":HttpGet()", ":Wait()"])
+                    AddIntellisense(Key, "Function", Key, Key.includes(":") ? Key.substring(1, Key.length) : Key);
 
-            for (const Key of ["Visible", "Color", "Transparency", "Thickness", "From", "To", "Text", "Size", "Center", "Outline", "OutlineColor", "Position", "TextBounds", "Font", "Data", "Rounding", "NumSides", "Radius", "Filled", "PointA", "PointB", "PointC", "PointD"])
-                AddIntellisense(Key, "Property", "Property for Drawing Library", Key);
-        }
-        load();
-        Refresh = function () {
-            var text = GetText();
-            SetText("");
-            editor.trigger('keyboard', 'type', {
-                text: text
-            });
-        }
-    });
-</script>
+                for (const Key of ["Visible", "Color", "Transparency", "Thickness", "From", "To", "Text", "Size", "Center", "Outline", "OutlineColor", "Position", "TextBounds", "Font", "Data", "Rounding", "NumSides", "Radius", "Filled", "PointA", "PointB", "PointC", "PointD"])
+					AddIntellisense(Key, "Property", "Property for Drawing Library", Key);
+
+			}
+			load();
+			Refresh = function () {
+				var text = GetText();
+				SetText("");
+				editor.trigger('keyboard', 'type', {
+					text: text
+				});
+			}
+		});
+	</script>
 </body>
 
 </html>
