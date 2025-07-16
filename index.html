@@ -2217,9 +2217,10 @@ body {
     padding: 0;
     overflow: hidden;
     background-color: #141414; /* RGB(20, 20, 20) as hex */
-    color: #d1c4ff; /* Soft purple for general text */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Modern, readable font */
-    font-size: 14px; /* Base font size for consistency */
+    color: #dcd6ff; /* Warmer, lighter purple */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6; /* More comfortable line spacing */
 }
 	</style>
 	<meta charset="utf-8" />
@@ -2227,10 +2228,10 @@ body {
 </head>
 
 <body>
-  <div class="editor-container">
-      <div id="tabs-container" class="tabs-container"></div>
-      <div id="container" style="width:100%;height:calc(100% - 35px);"></div>
-  </div>
+<div class="editor-container">
+    <div id="tabs-container" class="tabs-container"></div>
+    <div id="container" style="width:100%;height:calc(100% - 44px);position:relative;"></div>
+</div>
   <style>
       .editor-container {
           width: 100%;
@@ -2238,54 +2239,57 @@ body {
           display: flex;
           flex-direction: column;
       }
+
 .tabs-container {
-    background-color: #141414; /* Slightly lighter than background */
+    background-color: #141414; /* RGB(20, 20, 20) as hex */
     display: flex;
-    height: 42px; /* Taller for comfort */
+    height: 58px; /* Taller for comfort */
     overflow-x: auto;
-    border-bottom: 1px solid #2e2e2e; /* Softer border */
-    gap: 4px; /* More spacing between tabs */
-    padding: 0 10px; /* Additional padding */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Gentle shadow */
+    border-bottom: 1px solid #2a2a2a; /* Warmer, softer border */
+    gap: 12px; /* Generous spacing */
+    padding: 0 20px; /* Extra padding */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Softer, inviting shadow */
 }
       
 .tab {
     display: flex;
     align-items: center;
-    padding: 0 16px; /* More padding */
-    background-color: #1e1e1e; /* Light grayish background */
-    color: #d1c4ff; /* Soft purple text */
-    border: 1px solid #2e2e2e; /* Subtle border */
+    padding: 0 24px; /* More padding */
+    background-color: #1f1f1f; /* Warmer gray */
+    color: #dfd9ff; /* Softer text */
+    border: 1px solid #2a2a2a;
     border-bottom: none;
-    border-radius: 6px 6px 0 0; /* Rounded edges */
+    border-radius: 7px 7px 0 0; /* Softer, more rounded edges */
     min-width: 120px;
     max-width: 200px;
     position: relative;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, transform 0.25s ease, box-shadow 0.3s ease;
     user-select: none;
     font-size: 14px;
-    margin: 4px 0; /* Increased margin */
+    margin: 10px 0; /* Increased margin */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 .tab:hover {
-    background-color: #252525; /* Lighter hover */
-    color: #e0d7ff; /* Brighter text */
-    transform: translateY(-2px); /* More pronounced lift */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+    background-color: #2a2a2a; /* Warmer, inviting hover */
+    color: #f0eaff; /* Brighter, warmer text */
+    transform: translateY(-5px); /* More pronounced lift */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
 }
 
 .tab.active {
-    background-color: #141414; /* Matches background */
-    color: #e6e6fa; /* Very light purple for high contrast */
-    border-bottom: 3px solid #5d3fd3; /* Thicker theme accent */
+    background-color: #141414; /* Matches container */
+    color: #f0eaff; /* High-contrast, warm text */
+    border-bottom: 4px solid #5d3fd3; /* Thicker theme accent */
     font-weight: 500;
     transform: translateY(0);
-    box-shadow: none; /* Remove shadow on active */
+    box-shadow: none;
 }
+
 .tab-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px; /* More spacing */
+    width: 26px;
+    height: 26px;
+    margin-right: 18px; /* More spacing */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2293,12 +2297,13 @@ body {
     top: 1px;
 }
 .tab-icon img {
-    filter: brightness(1.8); /* Brighter icon */
-    transition: filter 0.2s ease;
+    filter: brightness(2.4);
+    transition: filter 0.25s ease;
 }
 .tab:hover .tab-icon img {
-    filter: brightness(2.2); /* Brighter on hover */
+    filter: brightness(2.8);
 }
+
 .tab-title {
     flex-grow: 1;
     white-space: nowrap;
@@ -2307,63 +2312,55 @@ body {
     font-size: 14px;
 }
 .tab-title.editing {
-    background: #252525; /* Lighter editing background */
+    background: #2a2a2a; /* Warmer editing background */
     border: 1px solid #3e3e3e; /* Softer border */
-    padding: 3px 6px; /* More padding */
-    border-radius: 4px;
+    padding: 7px 14px; /* More padding */
+    border-radius: 10px;
     outline: none;
-    color: #d1c4ff;
+    color: #dfd9ff;
 }
+
 .tab-close {
-    margin-left: 10px; /* More spacing */
-    opacity: 0.7;
-    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    margin-left: 18px; /* More spacing */
+    opacity: 0.9;
+    transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    color: #999; /* Neutral gray */
-    font-size: 12px; /* Smaller 'x' */
-}
-.tab-close {
-    margin-left: 10px; /* More spacing */
-    opacity: 0.7;
-    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 14px; /* Reduced from 18px */
-    height: 14px; /* Reduced from 18px */
-    border-radius: 3px; /* Square with slight rounding */
-    color: #999; /* Neutral gray */
-    font-size: 10px; /* Reduced from 12px to match size */
+    color: #a5a5a5; /* Warmer gray */
+    font-size: 12px;
 }
 .tab-close:hover {
     opacity: 1;
-    background-color: rgba(93, 63, 211, 0.25); /* Softer theme hover */
-    color: #e6e6fa; /* Match active text */
-    transform: scale(1.1); /* Slight scale on hover */
+    background-color: rgba(93, 63, 211, 0.4); /* Softer, warmer theme hover */
+    color: #f0eaff; /* Match active text */
+    transform: scale(1.05); /* More pronounced scale */
 }
+
 .tab.new-tab {
-    min-width: 36px;
-    max-width: 36px;
+    min-width: 1px;
+    max-width: 1px;
+    display: flex;
     justify-content: center;
     background-color: transparent;
     border: none;
-    margin-left: 6px;
+    margin-left: 1px;
     color: #5d3fd3; /* Theme color */
     font-size: 20px;
-    line-height: 36px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
-    border-radius: 4px; /* Square with slight rounding */
+    line-height: 42px;
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, transform 0.25s ease;
+    border-radius: 10px; /* Softer square */
+    margin-bottom: 12px;
 }
 .tab.new-tab:hover {
-    background-color: rgba(93, 63, 211, 0.15); /* Subtle theme hover */
-    color: #e0d7ff;
-    transform: scale(1.1); /* Slight scale on hover */
+    background-color: rgba(93, 63, 211, 0.3); /* Softer, warmer hover */
+    color: #f0eaff;
+    transform: scale(1.25); /* More scale */
 }
+
       @keyframes tabAppear {
           from {
               opacity: 0;
@@ -2626,73 +2623,85 @@ function setupAutosave() {
 			});
 
 			
-			monaco.editor.defineTheme('net-theme-dark', {
-				base: 'vs-dark',
-				inherit: true,
-				colors: {
+monaco.editor.defineTheme('net-theme-dark', {
+  base: 'vs-dark',
+  inherit: true,
+  colors: {
     "editor.background": '#141414', // RGB(20, 20, 20) as hex
-    "editor.lineHighlightBackground": '#1c1c1c', // Softer line highlight
+    "editor.lineHighlightBackground": '#1a1a1a', // Very subtle, warm highlight
     "editorCursor.foreground": '#5d3fd3', // Theme color for cursor
-    "editor.selectionBackground": '#3a2f66', // Subtle selection color from theme
-				},
-				rules: [{
-						token: 'global',
-						foreground: '87ceeb', // //FFFFFF
-						fontStyle: "bold"
-					},
-					{
-						token: 'keyword',
-						foreground: '5d3fd3',
-						fontStyle: "bold"
-					},
-					{
-						token: 'comment',
-						foreground: '7f7f7f'
-					},
-					{
-						token: 'number',
-						foreground: 'ff8c69'
-					},
-					{
-						token: 'string',
-						foreground: '98fb98'
-					},
-					{
-						token: 'Method',
-						foreground: 'ff99cc'
-					},
-				]
-			});
+    "editor.selectionBackground": '#412f6f', // Softer, warmer selection
+    "minimap.background": '#1a1a1a', // Warmer minimap background
+    "minimapSlider.background": '#5d3fd3', // Theme color for slider
+    "minimapSlider.hoverBackground": '#7e5eea', // Warmer, softer hover
+    "minimapSlider.activeBackground": '#9985e4', // Warmer active state
+  },
+  rules: [{
+      token: 'global',
+      foreground: '90eaff', // Brighter, soothing blue
+      fontStyle: "bold"
+    },
+    {
+      token: 'keyword',
+      foreground: '5d3fd3', // RGB(93, 63, 211) as hex
+      fontStyle: "bold"
+    },
+    {
+      token: 'comment',
+      foreground: '909090', // Warmer, lighter gray
+    },
+    {
+      token: 'number',
+      foreground: 'ffbb88', // Warmer, softer orange
+    },
+    {
+      token: 'string',
+      foreground: 'a5ffa5', // Softer, vibrant green
+    },
+    {
+      token: 'Method',
+      foreground: 'ff99e0', // Warmer, gentle pink
+    },
+  ]
+});
 
-			editor = monaco.editor.create(document.getElementById('container'), {
-				language: 'lua',
-				theme: "net-theme-dark",
-				acceptSuggestionOnEnter: "smart",
-				cursorSmoothCaretAnimation: true,
-				suggestOnTriggerCharacters: true,
-				suggestSelection: "recentlyUsed",
-				folding: true,
-					dragAndDrop: true,
-					links: false,
-					minimap: {
-						enabled: false,
-					},
-					showFoldingControls: "always",
-					smoothScrolling: true,
-					stopRenderingLineAfter: 6500,
-					cursorBlinking: "smooth",
-					cursorSmoothCaretAnimation: true,
-					foldingHighlight: false,
-					fontLigatures: true,
-					formatOnPaste: true,
-					showDeprecated: true,
-					suggest: {
-						snippetsPreventQuickSuggestions: false,
-					},
-					padding: {
-						top: 24,
-					}
-			});
+editor = monaco.editor.create(document.getElementById('container'), {
+  language: 'lua',
+  theme: "net-theme-dark",
+  acceptSuggestionOnEnter: "smart",
+  cursorSmoothCaretAnimation: true,
+  suggestOnTriggerCharacters: true,
+  suggestSelection: "recentlyUsed",
+  folding: true,
+  dragAndDrop: true,
+  links: false,
+  minimap: {
+    enabled: true,
+    showSlider: 'always',
+    size: 'proportional',
+    renderCharacters: false,
+    scale: 2,
+  },
+  showFoldingControls: "always",
+  smoothScrolling: true,
+  stopRenderingLineAfter: 6500,
+  cursorBlinking: "expand", // Gentler blinking
+  cursorSmoothCaretAnimation: "on",
+  foldingHighlight: true,
+  fontLigatures: true,
+  formatOnPaste: true,
+  showDeprecated: true,
+  suggest: {
+    snippetsPreventQuickSuggestions: false,
+  },
+  padding: {
+    top: 24,
+    bottom: 24, // More bottom padding
+  },
+  lineNumbers: "on",
+  lineDecorationsWidth: 15, // Even more space for decorations
+  fontSize: 14, // Slightly larger font
+});
 
       loadTabs();
       setupAutosave();
