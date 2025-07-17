@@ -2230,8 +2230,7 @@ body {
 <body>
 <div class="editor-container">
     <div id="tabs-container" class="tabs-container"></div>
-    <div id="container" style="width:100%;height:calc(100% - 40px);position:relative;"></div>
-</div>
+    <div id="container" style="width:100%;height:calc(100% - 48px);position:relative;"></div></div>
   <style>
       .editor-container {
           width: 100%;
@@ -2243,48 +2242,50 @@ body {
 .tabs-container {
     background-color: #141414;
     display: flex;
-    height: 40px; /* Reduced from 58px */
+    height: 45px; /* Unchanged */
     overflow-x: auto;
     border-bottom: 1px solid #2a2a2a;
-    gap: 8px; /* Reduced from 12px */
-    padding: 0 15px; /* Reduced from 20px */
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    gap: 10px;
+    padding: 2px 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: linear-gradient(90deg, #1a1a1a 0%, #141414 100%);
 }
-      
+
 .tab {
     display: flex;
     align-items: center;
-    padding: 0 12px; /* Reduced from 24px */
+    padding: 0 18px;
     background-color: #1f1f1f;
-    color: #dfd9ff;
-    border: 1px solid #2a2a2a;
+    color: #e0d8ff;
+    border: 1px solid #333333;
     border-bottom: none;
-    border-radius: 6px 6px 0 0; /* Slightly reduced rounding */
-    min-width: 80px; /* Reduced from 120px */
-    max-width: 150px; /* Reduced from 200px */
+    border-radius: 10px 10px 0 0;
+    min-width: 100px;
+    max-width: 180px;
     position: relative;
     cursor: pointer;
-    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, transform 0.25s ease, box-shadow 0.3s ease;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
     user-select: none;
-    font-size: 13px; /* Slightly smaller font */
-    margin: 6px 0; /* Reduced from 10px */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    font-size: 13px; /* Reduced from 14px for smaller tab */
+    margin: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    height: 38px; /* Reduced from 45px to make the tab physically smaller */
 }
 .tab:hover {
-    background-color: #2a2a2a;
-    color: #f0eaff;
-    transform: translateY(-3px); /* Reduced lift */
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    background-color: #2d2d2d;
+    color: #f5eaff;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(93, 63, 211, 0.2);
 }
-
-
 .tab.active {
-    background-color: #141414;
-    color: #f0eaff;
-    border-bottom: 3px solid #5d3fd3; /* Slightly thinner accent */
+    background-color: #1a1a1a;
+    color: #f5eaff;
+    border-bottom: 4px solid #5d3fd3;
     font-weight: 500;
     transform: translateY(0);
-    box-shadow: none;
+    box-shadow: 0 4px 10px rgba(93, 63, 211, 0.15);
 }
 
 .tab-icon {
@@ -2342,24 +2343,30 @@ body {
 }
 
 .tab.new-tab {
-    min-width: 30px; /* Reduced from 42px */
-    max-width: 30px; /* Reduced from 42px */
+    min-width: 24px;
+    max-width: 24px;
+    height: 36px;
+    line-height: 36px;
+    margin-left: 5px;
+    margin-top: 2px; /* Adjusted for visual position */
+    background-color: #1f1f1f;
+    color: #e0d8ff;
+    border: 1px solid #333333; /* Keep border identical on hover */
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    background-color: transparent;
-    border: none;
-    margin-left: 8px; /* Reduced from 12px */
-    color: #5d3fd3;
-    font-size: 18px; /* Reduced from 26px */
-    line-height: 30px; /* Reduced from 42px */
-    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, transform 0.25s ease;
-    border-radius: 6px; /* Reduced rounding */
-    margin-bottom: 6px; /* Reduced from 12px */
+    cursor: pointer;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* same on hover */
 }
+
 .tab.new-tab:hover {
-    background-color: rgba(93, 63, 211, 0.3);
-    color: #f0eaff;
-    transform: scale(1.15); /* Reduced scale */
+    background-color: #2d2d2d;
+    color: #f5eaff;
+    /* No changes to border, margin, or box-shadow */
 }
+
 
       @keyframes tabAppear {
           from {
