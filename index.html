@@ -2217,10 +2217,9 @@ body {
     padding: 0;
     overflow: hidden;
     background-color: #141414; /* RGB(20, 20, 20) as hex */
-    color: #dcd6ff; /* Warmer, lighter purple */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 14px;
-    line-height: 1.6; /* More comfortable line spacing */
+    color: #d1c4ff; /* Soft purple for general text */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Modern, readable font */
+    font-size: 14px; /* Base font size for consistency */
 }
 	</style>
 	<meta charset="utf-8" />
@@ -2228,9 +2227,10 @@ body {
 </head>
 
 <body>
-<div class="editor-container">
-    <div id="tabs-container" class="tabs-container"></div>
-    <div id="container" style="width:100%;height:calc(100% - 48px);position:relative;"></div></div>
+  <div class="editor-container">
+      <div id="tabs-container" class="tabs-container"></div>
+      <div id="container" style="width:100%;height:calc(100% - 35px);"></div>
+  </div>
   <style>
       .editor-container {
           width: 100%;
@@ -2238,60 +2238,54 @@ body {
           display: flex;
           flex-direction: column;
       }
-
 .tabs-container {
-    background-color: #141414;
+    background-color: #141414; /* Slightly lighter than background */
     display: flex;
-    height: 45px; /* Unchanged */
+    height: 42px; /* Taller for comfort */
     overflow-x: auto;
-    border-bottom: 1px solid #2a2a2a;
-    gap: 10px;
-    padding: 2px 5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    justify-content: flex-start;
-    align-items: flex-start;
-    background: linear-gradient(90deg, #1a1a1a 0%, #141414 100%);
+    border-bottom: 1px solid #2e2e2e; /* Softer border */
+    gap: 4px; /* More spacing between tabs */
+    padding: 0 10px; /* Additional padding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Gentle shadow */
 }
-
+      
 .tab {
     display: flex;
     align-items: center;
-    padding: 0 18px;
-    background-color: #1f1f1f;
-    color: #e0d8ff;
-    border: 1px solid #333333;
+    padding: 0 16px; /* More padding */
+    background-color: #1e1e1e; /* Light grayish background */
+    color: #d1c4ff; /* Soft purple text */
+    border: 1px solid #2e2e2e; /* Subtle border */
     border-bottom: none;
-    border-radius: 10px 10px 0 0;
-    min-width: 100px;
-    max-width: 180px;
+    border-radius: 6px 6px 0 0; /* Rounded edges */
+    min-width: 120px;
+    max-width: 200px;
     position: relative;
     cursor: pointer;
-    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
     user-select: none;
-    font-size: 13px; /* Reduced from 14px for smaller tab */
-    margin: 0;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    height: 38px; /* Reduced from 45px to make the tab physically smaller */
+    font-size: 14px;
+    margin: 4px 0; /* Increased margin */
 }
 .tab:hover {
-    background-color: #2d2d2d;
-    color: #f5eaff;
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(93, 63, 211, 0.2);
-}
-.tab.active {
-    background-color: #1a1a1a;
-    color: #f5eaff;
-    border-bottom: 4px solid #5d3fd3;
-    font-weight: 500;
-    transform: translateY(0);
-    box-shadow: 0 4px 10px rgba(93, 63, 211, 0.15);
+    background-color: #252525; /* Lighter hover */
+    color: #e0d7ff; /* Brighter text */
+    transform: translateY(-2px); /* More pronounced lift */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
 }
 
+.tab.active {
+    background-color: #141414; /* Matches background */
+    color: #e6e6fa; /* Very light purple for high contrast */
+    border-bottom: 3px solid #5d3fd3; /* Thicker theme accent */
+    font-weight: 500;
+    transform: translateY(0);
+    box-shadow: none; /* Remove shadow on active */
+}
 .tab-icon {
-    width: 18px; /* Reduced from 26px */
-    height: 18px; /* Reduced from 26px */
-    margin-right: 10px; /* Reduced from 18px */
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; /* More spacing */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2299,75 +2293,77 @@ body {
     top: 1px;
 }
 .tab-icon img {
-    filter: brightness(2.4);
-    transition: filter 0.25s ease;
+    filter: brightness(1.8); /* Brighter icon */
+    transition: filter 0.2s ease;
 }
 .tab:hover .tab-icon img {
-    filter: brightness(2.8);
+    filter: brightness(2.2); /* Brighter on hover */
 }
-
 .tab-title {
     flex-grow: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 13px; /* Reduced from 14px */
+    font-size: 14px;
 }
 .tab-title.editing {
-    background: #2a2a2a;
-    border: 1px solid #3e3e3e;
-    padding: 4px 8px; /* Reduced from 7px 14px */
-    border-radius: 6px; /* Reduced rounding */
+    background: #252525; /* Lighter editing background */
+    border: 1px solid #3e3e3e; /* Softer border */
+    padding: 3px 6px; /* More padding */
+    border-radius: 4px;
     outline: none;
-    color: #dfd9ff;
+    color: #d1c4ff;
 }
-
 .tab-close {
-    margin-left: 10px; /* Reduced from 18px */
-    opacity: 0.9;
-    transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    margin-left: 10px; /* More spacing */
+    opacity: 0.7;
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 18px; /* Reduced from 24px */
-    height: 18px; /* Reduced from 24px */
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    color: #a5a5a5;
-    font-size: 10px; /* Reduced from 12px */
+    color: #999; /* Neutral gray */
+    font-size: 12px; /* Smaller 'x' */
+}
+.tab-close {
+    margin-left: 10px; /* More spacing */
+    opacity: 0.7;
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px; /* Reduced from 18px */
+    height: 14px; /* Reduced from 18px */
+    border-radius: 3px; /* Square with slight rounding */
+    color: #999; /* Neutral gray */
+    font-size: 10px; /* Reduced from 12px to match size */
 }
 .tab-close:hover {
     opacity: 1;
-    background-color: rgba(93, 63, 211, 0.4);
-    color: #f0eaff;
-    transform: scale(1.05); /* Reduced scale */
+    background-color: rgba(93, 63, 211, 0.25); /* Softer theme hover */
+    color: #e6e6fa; /* Match active text */
+    transform: scale(1.1); /* Slight scale on hover */
 }
-
 .tab.new-tab {
-    min-width: 24px;
-    max-width: 24px;
-    height: 36px;
-    line-height: 36px;
-    margin-left: 5px;
-    margin-top: 2px; /* Adjusted for visual position */
-    background-color: #1f1f1f;
-    color: #e0d8ff;
-    border: 1px solid #333333; /* Keep border identical on hover */
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    align-items: center;
+    min-width: 36px;
+    max-width: 36px;
     justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* same on hover */
+    background-color: transparent;
+    border: none;
+    margin-left: 6px;
+    color: #5d3fd3; /* Theme color */
+    font-size: 20px;
+    line-height: 36px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+    border-radius: 4px; /* Square with slight rounding */
 }
-
 .tab.new-tab:hover {
-    background-color: #2d2d2d;
-    color: #f5eaff;
-    /* No changes to border, margin, or box-shadow */
+    background-color: rgba(93, 63, 211, 0.15); /* Subtle theme hover */
+    color: #e0d7ff;
+    transform: scale(1.1); /* Slight scale on hover */
 }
-
-
       @keyframes tabAppear {
           from {
               opacity: 0;
@@ -2630,85 +2626,73 @@ function setupAutosave() {
 			});
 
 			
-monaco.editor.defineTheme('net-theme-dark', {
-  base: 'vs-dark',
-  inherit: true,
-  colors: {
+			monaco.editor.defineTheme('net-theme-dark', {
+				base: 'vs-dark',
+				inherit: true,
+				colors: {
     "editor.background": '#141414', // RGB(20, 20, 20) as hex
-    "editor.lineHighlightBackground": '#1a1a1a', // Very subtle, warm highlight
+    "editor.lineHighlightBackground": '#1c1c1c', // Softer line highlight
     "editorCursor.foreground": '#5d3fd3', // Theme color for cursor
-    "editor.selectionBackground": '#412f6f', // Softer, warmer selection
-    "minimap.background": '#1a1a1a', // Warmer minimap background
-    "minimapSlider.background": '#5d3fd3', // Theme color for slider
-    "minimapSlider.hoverBackground": '#7e5eea', // Warmer, softer hover
-    "minimapSlider.activeBackground": '#9985e4', // Warmer active state
-  },
-  rules: [{
-      token: 'global',
-      foreground: '90eaff', // Brighter, soothing blue
-      fontStyle: "bold"
-    },
-    {
-      token: 'keyword',
-      foreground: '5d3fd3', // RGB(93, 63, 211) as hex
-      fontStyle: "bold"
-    },
-    {
-      token: 'comment',
-      foreground: '909090', // Warmer, lighter gray
-    },
-    {
-      token: 'number',
-      foreground: 'ffbb88', // Warmer, softer orange
-    },
-    {
-      token: 'string',
-      foreground: 'a5ffa5', // Softer, vibrant green
-    },
-    {
-      token: 'Method',
-      foreground: 'ff99e0', // Warmer, gentle pink
-    },
-  ]
-});
+    "editor.selectionBackground": '#3a2f66', // Subtle selection color from theme
+				},
+				rules: [{
+						token: 'global',
+						foreground: '87ceeb', // //FFFFFF
+						fontStyle: "bold"
+					},
+					{
+						token: 'keyword',
+						foreground: '5d3fd3',
+						fontStyle: "bold"
+					},
+					{
+						token: 'comment',
+						foreground: '7f7f7f'
+					},
+					{
+						token: 'number',
+						foreground: 'ff8c69'
+					},
+					{
+						token: 'string',
+						foreground: '98fb98'
+					},
+					{
+						token: 'Method',
+						foreground: 'ff99cc'
+					},
+				]
+			});
 
-editor = monaco.editor.create(document.getElementById('container'), {
-  language: 'lua',
-  theme: "net-theme-dark",
-  acceptSuggestionOnEnter: "smart",
-  cursorSmoothCaretAnimation: true,
-  suggestOnTriggerCharacters: true,
-  suggestSelection: "recentlyUsed",
-  folding: true,
-  dragAndDrop: true,
-  links: false,
-  minimap: {
-    enabled: true,
-    showSlider: 'always',
-    size: 'proportional',
-    renderCharacters: false,
-    scale: 2,
-  },
-  showFoldingControls: "always",
-  smoothScrolling: true,
-  stopRenderingLineAfter: 6500,
-  cursorBlinking: "expand", // Gentler blinking
-  cursorSmoothCaretAnimation: "on",
-  foldingHighlight: true,
-  fontLigatures: true,
-  formatOnPaste: true,
-  showDeprecated: true,
-  suggest: {
-    snippetsPreventQuickSuggestions: false,
-  },
-  padding: {
-    top: 24,
-    bottom: 24, // More bottom padding
-  },
-  lineNumbers: "on",
-  lineDecorationsWidth: 15, // Even more space for decorations
-  fontSize: 14, // Slightly larger font
-});
+			editor = monaco.editor.create(document.getElementById('container'), {
+				language: 'lua',
+				theme: "net-theme-dark",
+				acceptSuggestionOnEnter: "smart",
+				cursorSmoothCaretAnimation: true,
+				suggestOnTriggerCharacters: true,
+				suggestSelection: "recentlyUsed",
+				folding: true,
+					dragAndDrop: true,
+					links: false,
+					minimap: {
+						enabled: false,
+					},
+					showFoldingControls: "always",
+					smoothScrolling: true,
+					stopRenderingLineAfter: 6500,
+					cursorBlinking: "smooth",
+					cursorSmoothCaretAnimation: true,
+					foldingHighlight: false,
+					fontLigatures: true,
+					formatOnPaste: true,
+					showDeprecated: true,
+					suggest: {
+						snippetsPreventQuickSuggestions: false,
+					},
+					padding: {
+						top: 24,
+					}
+			});
 
       loadTabs();
       setupAutosave();
