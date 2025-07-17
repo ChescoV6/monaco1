@@ -2230,70 +2230,67 @@ body {
 <body>
 <div class="editor-container">
     <div id="tabs-container" class="tabs-container"></div>
-    <div id="container" style="width:100%;height:calc(100% - 48px);position:relative;"></div>
+    <div id="container" style="width:100%;height:calc(100% - 40px);position:relative;"></div>
 </div>
   <style>
-    .editor-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 0; /* Ensure no margin */
-    padding: 0; /* Ensure no padding */
-}
+      .editor-container {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+      }
 
 .tabs-container {
     background-color: #141414;
     display: flex;
-    height: 48px; /* Kept as is from previous adjustment */
+    height: 40px; /* Reduced from 58px */
     overflow-x: auto;
     border-bottom: 1px solid #2a2a2a;
-    gap: 10px;
-    padding: 5px 10px; /* Reduced padding to push closer to top-left */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    justify-content: flex-start; /* Aligns content to the start (left) */
-    align-items: flex-start; /* Aligns items to the top */
+    gap: 8px; /* Reduced from 12px */
+    padding: 0 15px; /* Reduced from 20px */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
 }
       
 .tab {
     display: flex;
     align-items: center;
-    padding: 0 18px;
+    padding: 0 12px; /* Reduced from 24px */
     background-color: #1f1f1f;
     color: #dfd9ff;
     border: 1px solid #2a2a2a;
     border-bottom: none;
-    border-radius: 7px 7px 0 0;
-    min-width: 100px;
-    max-width: 180px;
+    border-radius: 6px 6px 0 0; /* Slightly reduced rounding */
+    min-width: 80px; /* Reduced from 120px */
+    max-width: 150px; /* Reduced from 200px */
     position: relative;
     cursor: pointer;
     transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, transform 0.25s ease, box-shadow 0.3s ease;
     user-select: none;
-    font-size: 14px;
-    margin: 0; /* Removed margin to align tightly */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-size: 13px; /* Slightly smaller font */
+    margin: 6px 0; /* Reduced from 10px */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 .tab:hover {
     background-color: #2a2a2a;
     color: #f0eaff;
-    transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px); /* Reduced lift */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
+
 
 .tab.active {
     background-color: #141414;
     color: #f0eaff;
-    border-bottom: 4px solid #5d3fd3;
+    border-bottom: 3px solid #5d3fd3; /* Slightly thinner accent */
     font-weight: 500;
     transform: translateY(0);
     box-shadow: none;
 }
 
 .tab-icon {
-    width: 22px;
-    height: 22px;
-    margin-right: 14px;
+    width: 18px; /* Reduced from 26px */
+    height: 18px; /* Reduced from 26px */
+    margin-right: 10px; /* Reduced from 18px */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2313,55 +2310,55 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 14px;
+    font-size: 13px; /* Reduced from 14px */
 }
 .tab-title.editing {
     background: #2a2a2a;
     border: 1px solid #3e3e3e;
-    padding: 6px 12px;
-    border-radius: 8px;
+    padding: 4px 8px; /* Reduced from 7px 14px */
+    border-radius: 6px; /* Reduced rounding */
     outline: none;
     color: #dfd9ff;
 }
 
 .tab-close {
-    margin-left: 14px;
+    margin-left: 10px; /* Reduced from 18px */
     opacity: 0.9;
     transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: 18px; /* Reduced from 24px */
+    height: 18px; /* Reduced from 24px */
     border-radius: 50%;
     color: #a5a5a5;
-    font-size: 11px;
+    font-size: 10px; /* Reduced from 12px */
 }
 .tab-close:hover {
     opacity: 1;
     background-color: rgba(93, 63, 211, 0.4);
     color: #f0eaff;
-    transform: scale(1.1);
+    transform: scale(1.05); /* Reduced scale */
 }
 
 .tab.new-tab {
-    min-width: 36px;
-    max-width: 36px;
+    min-width: 30px; /* Reduced from 42px */
+    max-width: 30px; /* Reduced from 42px */
     justify-content: center;
     background-color: transparent;
     border: none;
-    margin-left: 10px;
+    margin-left: 8px; /* Reduced from 12px */
     color: #5d3fd3;
-    font-size: 22px;
-    line-height: 36px;
+    font-size: 18px; /* Reduced from 26px */
+    line-height: 30px; /* Reduced from 42px */
     transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, transform 0.25s ease;
-    border-radius: 8px;
-    margin-bottom: 8px;
+    border-radius: 6px; /* Reduced rounding */
+    margin-bottom: 6px; /* Reduced from 12px */
 }
 .tab.new-tab:hover {
     background-color: rgba(93, 63, 211, 0.3);
     color: #f0eaff;
-    transform: scale(1.2);
+    transform: scale(1.15); /* Reduced scale */
 }
 
       @keyframes tabAppear {
